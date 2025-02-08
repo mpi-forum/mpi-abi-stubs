@@ -596,27 +596,27 @@ int MPI_Status_f082c(const MPI_F08_status *f08_status, MPI_Status *c_status) { a
 int MPI_Status_f2f08(const MPI_Fint *f_status, MPI_F08_status *f08_status) { abort(); return 0; }
 int MPI_Status_f082f(const MPI_F08_status *f08_status, MPI_Fint *f_status) { abort(); return 0; }
 MPI_Fint MPI_Comm_c2f(MPI_Comm comm) { abort(); return 0; }
-MPI_Comm MPI_Comm_f2c(MPI_Fint comm) { abort(); return 0; }
+MPI_Comm MPI_Comm_f2c(MPI_Fint comm) { abort(); return NULL; }
 MPI_Fint MPI_Errhandler_c2f(MPI_Errhandler errhandler) { abort(); return 0; }
-MPI_Errhandler MPI_Errhandler_f2c(MPI_Fint errhandler) { abort(); return 0; }
-MPI_Fint MPI_Type_c2f(MPI_Datatype datatype) { abort(); return 0; }
-MPI_Datatype MPI_Type_f2c(MPI_Fint datatype) { abort(); return 0; }
+MPI_Errhandler MPI_Errhandler_f2c(MPI_Fint errhandler) { abort(); return NULL; }
 MPI_Fint MPI_File_c2f(MPI_File file) { abort(); return 0; }
-MPI_File MPI_File_f2c(MPI_Fint file) { abort(); return 0; }
+MPI_File MPI_File_f2c(MPI_Fint file) { abort(); return NULL; }
 MPI_Fint MPI_Group_c2f(MPI_Group group) { abort(); return 0; }
-MPI_Group MPI_Group_f2c(MPI_Fint group) { abort(); return 0; }
+MPI_Group MPI_Group_f2c(MPI_Fint group) { abort(); return NULL; }
 MPI_Fint MPI_Info_c2f(MPI_Info info) { abort(); return 0; }
-MPI_Info MPI_Info_f2c(MPI_Fint info) { abort(); return 0; }
+MPI_Info MPI_Info_f2c(MPI_Fint info) { abort(); return NULL; }
 MPI_Fint MPI_Message_c2f(MPI_Message message) { abort(); return 0; }
-MPI_Message MPI_Message_f2c(MPI_Fint message) { abort(); return 0; }
+MPI_Message MPI_Message_f2c(MPI_Fint message) { abort(); return NULL; }
 MPI_Fint MPI_Op_c2f(MPI_Op op) { abort(); return 0; }
-MPI_Op MPI_Op_f2c(MPI_Fint op) { abort(); return 0; }
+MPI_Op MPI_Op_f2c(MPI_Fint op) { abort(); return NULL; }
 MPI_Fint MPI_Request_c2f(MPI_Request request) { abort(); return 0; }
-MPI_Request MPI_Request_f2c(MPI_Fint request) { abort(); return 0; }
+MPI_Request MPI_Request_f2c(MPI_Fint request) { abort(); return NULL; }
 MPI_Fint MPI_Session_c2f(MPI_Session session) { abort(); return 0; }
-MPI_Session MPI_Session_f2c(MPI_Fint session) { abort(); return 0; }
+MPI_Session MPI_Session_f2c(MPI_Fint session) { abort(); return NULL; }
+MPI_Fint MPI_Type_c2f(MPI_Datatype datatype) { abort(); return 0; }
+MPI_Datatype MPI_Type_f2c(MPI_Fint datatype) { abort(); return NULL; }
 MPI_Fint MPI_Win_c2f(MPI_Win win) { abort(); return 0; }
-MPI_Win MPI_Win_f2c(MPI_Fint win) { abort(); return 0; }
+MPI_Win MPI_Win_f2c(MPI_Fint win) { abort(); return NULL; }
 
 /* MPI_T functions */
 int MPI_T_category_changed(int *update_number) { abort(); return 0; }
@@ -1266,27 +1266,27 @@ int PMPI_Status_f082c(const MPI_F08_status *f08_status, MPI_Status *c_status) { 
 int PMPI_Status_f2f08(const MPI_Fint *f_status, MPI_F08_status *f08_status) { abort(); return 0; }
 int PMPI_Status_f082f(const MPI_F08_status *f08_status, MPI_Fint *f_status) { abort(); return 0; }
 MPI_Fint PMPI_Comm_c2f(MPI_Comm comm) { abort(); return 0; }
-MPI_Comm PMPI_Comm_f2c(MPI_Fint comm) { abort(); return 0; }
+MPI_Comm PMPI_Comm_f2c(MPI_Fint comm) { abort(); return NULL; }
 MPI_Fint PMPI_Errhandler_c2f(MPI_Errhandler errhandler) { abort(); return 0; }
-MPI_Errhandler PMPI_Errhandler_f2c(MPI_Fint errhandler) { abort(); return 0; }
-MPI_Fint PMPI_Type_c2f(MPI_Datatype datatype) { abort(); return 0; }
-MPI_Datatype PMPI_Type_f2c(MPI_Fint datatype) { abort(); return 0; }
+MPI_Errhandler PMPI_Errhandler_f2c(MPI_Fint errhandler) { abort(); return NULL; }
 MPI_Fint PMPI_File_c2f(MPI_File file) { abort(); return 0; }
-MPI_File PMPI_File_f2c(MPI_Fint file) { abort(); return 0; }
+MPI_File PMPI_File_f2c(MPI_Fint file) { abort(); return NULL; }
 MPI_Fint PMPI_Group_c2f(MPI_Group group) { abort(); return 0; }
-MPI_Group PMPI_Group_f2c(MPI_Fint group) { abort(); return 0; }
+MPI_Group PMPI_Group_f2c(MPI_Fint group) { abort(); return NULL; }
 MPI_Fint PMPI_Info_c2f(MPI_Info info) { abort(); return 0; }
-MPI_Info PMPI_Info_f2c(MPI_Fint info) { abort(); return 0; }
+MPI_Info PMPI_Info_f2c(MPI_Fint info) { abort(); return NULL; }
 MPI_Fint PMPI_Message_c2f(MPI_Message message) { abort(); return 0; }
-MPI_Message PMPI_Message_f2c(MPI_Fint message) { abort(); return 0; }
+MPI_Message PMPI_Message_f2c(MPI_Fint message) { abort(); return NULL; }
 MPI_Fint PMPI_Op_c2f(MPI_Op op) { abort(); return 0; }
-MPI_Op PMPI_Op_f2c(MPI_Fint op) { abort(); return 0; }
+MPI_Op PMPI_Op_f2c(MPI_Fint op) { abort(); return NULL; }
 MPI_Fint PMPI_Request_c2f(MPI_Request request) { abort(); return 0; }
-MPI_Request PMPI_Request_f2c(MPI_Fint request) { abort(); return 0; }
+MPI_Request PMPI_Request_f2c(MPI_Fint request) { abort(); return NULL; }
 MPI_Fint PMPI_Session_c2f(MPI_Session session) { abort(); return 0; }
-MPI_Session PMPI_Session_f2c(MPI_Fint session) { abort(); return 0; }
+MPI_Session PMPI_Session_f2c(MPI_Fint session) { abort(); return NULL; }
+MPI_Fint PMPI_Type_c2f(MPI_Datatype datatype) { abort(); return 0; }
+MPI_Datatype PMPI_Type_f2c(MPI_Fint datatype) { abort(); return NULL; }
 MPI_Fint PMPI_Win_c2f(MPI_Win win) { abort(); return 0; }
-MPI_Win PMPI_Win_f2c(MPI_Fint win) { abort(); return 0; }
+MPI_Win PMPI_Win_f2c(MPI_Fint win) { abort(); return NULL; }
 
 /* PMPI_T functions */
 int PMPI_T_category_changed(int *update_number) { abort(); return 0; }
