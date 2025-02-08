@@ -589,6 +589,29 @@ MPI_Aint MPI_Aint_diff(MPI_Aint addr1, MPI_Aint addr2) { abort(); return 0; }
 double MPI_Wtick(void) { abort(); return 0; }
 double MPI_Wtime(void) { abort(); return 0; }
 
+MPI_Comm MPI_Comm_fromint(int comm) { abort(); return NULL; }
+int MPI_Comm_toint(MPI_Comm comm) { abort(); return 0; }
+MPI_Errhandler MPI_Errhandler_fromint(int errhandler) { abort(); return NULL; }
+int MPI_Errhandler_toint(MPI_Errhandler errhandler) { abort(); return 0; }
+MPI_File MPI_File_fromint(int file) { abort(); return NULL; }
+int MPI_File_toint(MPI_File file) { abort(); return 0; }
+MPI_Group MPI_Group_fromint(int group) { abort(); return NULL; }
+int MPI_Group_toint(MPI_Group group) { abort(); return 0; }
+MPI_Info MPI_Info_fromint(int info) { abort(); return NULL; }
+int MPI_Info_toint(MPI_Info info) { abort(); return 0; }
+MPI_Message MPI_Message_fromint(int message) { abort(); return NULL; }
+int MPI_Message_toint(MPI_Message message) { abort(); return 0; }
+MPI_Op MPI_Op_fromint(int op) { abort(); return NULL; }
+int MPI_Op_toint(MPI_Op op) { abort(); return 0; }
+MPI_Request MPI_Request_fromint(int request) { abort(); return NULL; }
+int MPI_Request_toint(MPI_Request request) { abort(); return 0; }
+MPI_Session MPI_Session_fromint(int session) { abort(); return NULL; }
+int MPI_Session_toint(MPI_Session session) { abort(); return 0; }
+MPI_Datatype MPI_Type_fromint(int datatype) { abort(); return NULL; }
+int MPI_Type_toint(MPI_Datatype datatype) { abort(); return 0; }
+MPI_Win MPI_Win_fromint(int win) { abort(); return NULL; }
+int MPI_Win_toint(MPI_Win win) { abort(); return 0; }
+
 int MPI_Status_c2f(const MPI_Status *c_status, MPI_Fint *f_status) { abort(); return 0; }
 int MPI_Status_f2c(const MPI_Fint *f_status, MPI_Status *c_status) { abort(); return 0; }
 int MPI_Status_c2f08(const MPI_Status *c_status, MPI_F08_status *f08_status) { abort(); return 0; }
@@ -1258,6 +1281,29 @@ MPI_Aint PMPI_Aint_add(MPI_Aint base, MPI_Aint disp) { abort(); return 0; }
 MPI_Aint PMPI_Aint_diff(MPI_Aint addr1, MPI_Aint addr2) { abort(); return 0; }
 double PMPI_Wtick(void) { abort(); return 0; }
 double PMPI_Wtime(void) { abort(); return 0; }
+
+MPI_Comm PMPI_Comm_fromint(int comm) { abort(); return NULL; }
+int PMPI_Comm_toint(MPI_Comm comm) { abort(); return 0; }
+MPI_Errhandler PMPI_Errhandler_fromint(int errhandler) { abort(); return NULL; }
+int PMPI_Errhandler_toint(MPI_Errhandler errhandler) { abort(); return 0; }
+MPI_File PMPI_File_fromint(int file) { abort(); return NULL; }
+int PMPI_File_toint(MPI_File file) { abort(); return 0; }
+MPI_Group PMPI_Group_fromint(int group) { abort(); return NULL; }
+int PMPI_Group_toint(MPI_Group group) { abort(); return 0; }
+MPI_Info PMPI_Info_fromint(int info) { abort(); return NULL; }
+int PMPI_Info_toint(MPI_Info info) { abort(); return 0; }
+MPI_Message PMPI_Message_fromint(int message) { abort(); return NULL; }
+int PMPI_Message_toint(MPI_Message message) { abort(); return 0; }
+MPI_Op PMPI_Op_fromint(int op) { abort(); return NULL; }
+int PMPI_Op_toint(MPI_Op op) { abort(); return 0; }
+MPI_Request PMPI_Request_fromint(int request) { abort(); return NULL; }
+int PMPI_Request_toint(MPI_Request request) { abort(); return 0; }
+MPI_Session PMPI_Session_fromint(int session) { abort(); return NULL; }
+int PMPI_Session_toint(MPI_Session session) { abort(); return 0; }
+MPI_Datatype PMPI_Type_fromint(int datatype) { abort(); return NULL; }
+int PMPI_Type_toint(MPI_Datatype datatype) { abort(); return 0; }
+MPI_Win PMPI_Win_fromint(int win) { abort(); return NULL; }
+int PMPI_Win_toint(MPI_Win win) { abort(); return 0; }
 
 int PMPI_Status_c2f(const MPI_Status *c_status, MPI_Fint *f_status) { abort(); return 0; }
 int PMPI_Status_f2c(const MPI_Fint *f_status, MPI_Status *c_status) { abort(); return 0; }
