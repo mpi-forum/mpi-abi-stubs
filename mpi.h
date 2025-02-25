@@ -7,8 +7,8 @@
 extern "C" {
 #endif
 
-#define MPI_VERSION    4
-#define MPI_SUBVERSION 2
+#define MPI_VERSION    5
+#define MPI_SUBVERSION 0
 
 #define MPI_ABI_VERSION    1
 #define MPI_ABI_SUBVERSION 0
