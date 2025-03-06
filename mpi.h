@@ -348,9 +348,9 @@ enum {
 enum {
     /* Thread Support - monotonic values, SINGLE < FUNNELED < SERIALIZED < MULTIPLE. */
     MPI_THREAD_SINGLE                  = 0,
-    MPI_THREAD_FUNNELED                = 1,
-    MPI_THREAD_SERIALIZED              = 2,
-    MPI_THREAD_MULTIPLE                = 7, /* in case we need other threading levels below MULTIPLE */
+    MPI_THREAD_FUNNELED                = 1024,
+    MPI_THREAD_SERIALIZED              = 2048,
+    MPI_THREAD_MULTIPLE                = 4096,
 
     /* Array Datatype Order */
     MPI_ORDER_C                        = 0xC, /* 12 */
