@@ -378,7 +378,8 @@ int MPI_Pcontrol(const int level, ...) { abort(); return 0; }
 int MPI_Pready(int partition, MPI_Request request) { abort(); return 0; }
 int MPI_Pready_list(int length, const int array_of_partitions[], MPI_Request request) { abort(); return 0; }
 int MPI_Pready_range(int partition_low, int partition_high, MPI_Request request) { abort(); return 0; }
-int MPI_Precv_init(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int MPI_Precv_init(void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int MPI_Precv_init_c(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) { abort(); return 0; }
 int MPI_Psend_init(const void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int MPI_Psend_init_c(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
@@ -1043,7 +1044,8 @@ int PMPI_Pcontrol(const int level, ...) { abort(); return 0; }
 int PMPI_Pready(int partition, MPI_Request request) { abort(); return 0; }
 int PMPI_Pready_list(int length, const int array_of_partitions[], MPI_Request request) { abort(); return 0; }
 int PMPI_Pready_range(int partition_low, int partition_high, MPI_Request request) { abort(); return 0; }
-int PMPI_Precv_init(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int PMPI_Precv_init(void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int PMPI_Precv_init_c(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int PMPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) { abort(); return 0; }
 int PMPI_Psend_init(const void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int PMPI_Psend_init_c(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
