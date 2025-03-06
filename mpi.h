@@ -37,14 +37,6 @@ typedef MPI_ABI_Offset MPI_Offset;
 typedef MPI_ABI_Count MPI_Count;
 #undef  MPI_ABI_Count
 
-/* MPI_Fint must match the Fortran default INTEGER kind. */
-/* It is often equivalent to C int but most compilers support wider options. */
-#if !defined(MPI_ABI_Fint)
-#define MPI_ABI_Fint int
-#endif
-typedef MPI_ABI_Fint MPI_Fint;
-#undef  MPI_ABI_Fint
-
 typedef struct {
     int MPI_SOURCE;
     int MPI_TAG;
@@ -186,14 +178,6 @@ enum {
     MPI_F_TAG                          = 1,
     MPI_F_ERROR                        = 2
 };
-
-/* Fortran 2008 Status Type */
-typedef struct {
-  MPI_Fint MPI_SOURCE;
-  MPI_Fint MPI_TAG;
-  MPI_Fint MPI_ERROR;
-  MPI_Fint MPI_internal[5];
-} MPI_F08_status;
 
 /* Error Classes */
 enum {
@@ -1186,35 +1170,6 @@ int MPI_Type_toint(MPI_Datatype datatype);
 MPI_Win MPI_Win_fromint(int win);
 int MPI_Win_toint(MPI_Win win);
 
-int MPI_Status_c2f(const MPI_Status *c_status, MPI_Fint *f_status);
-int MPI_Status_f2c(const MPI_Fint *f_status, MPI_Status *c_status);
-int MPI_Status_c2f08(const MPI_Status *c_status, MPI_F08_status *f08_status);
-int MPI_Status_f082c(const MPI_F08_status *f08_status, MPI_Status *c_status);
-int MPI_Status_f2f08(const MPI_Fint *f_status, MPI_F08_status *f08_status);
-int MPI_Status_f082f(const MPI_F08_status *f08_status, MPI_Fint *f_status);
-MPI_Fint MPI_Comm_c2f(MPI_Comm comm);
-MPI_Comm MPI_Comm_f2c(MPI_Fint comm);
-MPI_Fint MPI_Errhandler_c2f(MPI_Errhandler errhandler);
-MPI_Errhandler MPI_Errhandler_f2c(MPI_Fint errhandler);
-MPI_Fint MPI_File_c2f(MPI_File file);
-MPI_File MPI_File_f2c(MPI_Fint file);
-MPI_Fint MPI_Group_c2f(MPI_Group group);
-MPI_Group MPI_Group_f2c(MPI_Fint group);
-MPI_Fint MPI_Info_c2f(MPI_Info info);
-MPI_Info MPI_Info_f2c(MPI_Fint info);
-MPI_Fint MPI_Message_c2f(MPI_Message message);
-MPI_Message MPI_Message_f2c(MPI_Fint message);
-MPI_Fint MPI_Op_c2f(MPI_Op op);
-MPI_Op MPI_Op_f2c(MPI_Fint op);
-MPI_Fint MPI_Request_c2f(MPI_Request request);
-MPI_Request MPI_Request_f2c(MPI_Fint request);
-MPI_Fint MPI_Session_c2f(MPI_Session session);
-MPI_Session MPI_Session_f2c(MPI_Fint session);
-MPI_Fint MPI_Type_c2f(MPI_Datatype datatype);
-MPI_Datatype MPI_Type_f2c(MPI_Fint datatype);
-MPI_Fint MPI_Win_c2f(MPI_Win win);
-MPI_Win MPI_Win_f2c(MPI_Fint win);
-
 /* MPI_T functions */
 int MPI_T_category_changed(int *update_number);
 int MPI_T_category_get_categories(int cat_index, int len, int indices[]);
@@ -1878,35 +1833,6 @@ MPI_Datatype PMPI_Type_fromint(int datatype);
 int PMPI_Type_toint(MPI_Datatype datatype);
 MPI_Win PMPI_Win_fromint(int win);
 int PMPI_Win_toint(MPI_Win win);
-
-int PMPI_Status_c2f(const MPI_Status *c_status, MPI_Fint *f_status);
-int PMPI_Status_f2c(const MPI_Fint *f_status, MPI_Status *c_status);
-int PMPI_Status_c2f08(const MPI_Status *c_status, MPI_F08_status *f08_status);
-int PMPI_Status_f082c(const MPI_F08_status *f08_status, MPI_Status *c_status);
-int PMPI_Status_f2f08(const MPI_Fint *f_status, MPI_F08_status *f08_status);
-int PMPI_Status_f082f(const MPI_F08_status *f08_status, MPI_Fint *f_status);
-MPI_Fint PMPI_Comm_c2f(MPI_Comm comm);
-MPI_Comm PMPI_Comm_f2c(MPI_Fint comm);
-MPI_Fint PMPI_Errhandler_c2f(MPI_Errhandler errhandler);
-MPI_Errhandler PMPI_Errhandler_f2c(MPI_Fint errhandler);
-MPI_Fint PMPI_File_c2f(MPI_File file);
-MPI_File PMPI_File_f2c(MPI_Fint file);
-MPI_Fint PMPI_Group_c2f(MPI_Group group);
-MPI_Group PMPI_Group_f2c(MPI_Fint group);
-MPI_Fint PMPI_Info_c2f(MPI_Info info);
-MPI_Info PMPI_Info_f2c(MPI_Fint info);
-MPI_Fint PMPI_Message_c2f(MPI_Message message);
-MPI_Message PMPI_Message_f2c(MPI_Fint message);
-MPI_Fint PMPI_Op_c2f(MPI_Op op);
-MPI_Op PMPI_Op_f2c(MPI_Fint op);
-MPI_Fint PMPI_Request_c2f(MPI_Request request);
-MPI_Request PMPI_Request_f2c(MPI_Fint request);
-MPI_Fint PMPI_Session_c2f(MPI_Session session);
-MPI_Session PMPI_Session_f2c(MPI_Fint session);
-MPI_Fint PMPI_Type_c2f(MPI_Datatype datatype);
-MPI_Datatype PMPI_Type_f2c(MPI_Fint datatype);
-MPI_Fint PMPI_Win_c2f(MPI_Win win);
-MPI_Win PMPI_Win_f2c(MPI_Fint win);
 
 /* PMPI_T functions */
 int PMPI_T_category_changed(int *update_number);
