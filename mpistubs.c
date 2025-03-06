@@ -1,12 +1,6 @@
 #include <stdlib.h>
 #include "mpi.h"
 
-/* MPI global variables */
-MPI_Fint * MPI_F_STATUS_IGNORE = NULL;
-MPI_Fint * MPI_F_STATUSES_IGNORE = NULL;
-MPI_F08_status * MPI_F08_STATUS_IGNORE = NULL;
-MPI_F08_status * MPI_F08_STATUSES_IGNORE = NULL;
-
 /* MPI functions */
 int MPI_Abi_get_info(MPI_Info *info) { abort(); return 0; }
 int MPI_Abi_get_version(int *abi_major, int *abi_minor) { abort(); return 0; }
