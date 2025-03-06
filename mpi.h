@@ -510,10 +510,10 @@ typedef struct MPI_T_event_instance_t* MPI_T_event_instance;
 #define MPI_T_PVAR_ALL_HANDLES         ((MPI_T_pvar_handle)1)
 
 typedef enum  MPI_T_cb_safety {
-    MPI_T_CB_REQUIRE_NONE              = 0,
-    MPI_T_CB_REQUIRE_MPI_RESTRICTED    = 1,
-    MPI_T_CB_REQUIRE_THREAD_SAFE       = 3,
-    MPI_T_CB_REQUIRE_ASYNC_SIGNAL_SAFE = 7
+    MPI_T_CB_REQUIRE_NONE              = 0x00,
+    MPI_T_CB_REQUIRE_MPI_RESTRICTED    = 0x03,
+    MPI_T_CB_REQUIRE_THREAD_SAFE       = 0x0F,
+    MPI_T_CB_REQUIRE_ASYNC_SIGNAL_SAFE = 0x3F
 } MPI_T_cb_safety;
 
 typedef enum MPI_T_source_order {
