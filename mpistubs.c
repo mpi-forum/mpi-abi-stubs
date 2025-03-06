@@ -292,11 +292,9 @@ int MPI_Info_create_env(int argc, char *argv[], MPI_Info *info) { abort(); retur
 int MPI_Info_delete(MPI_Info info, const char *key) { abort(); return 0; }
 int MPI_Info_dup(MPI_Info info, MPI_Info *newinfo) { abort(); return 0; }
 int MPI_Info_free(MPI_Info *info) { abort(); return 0; }
-int MPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag) { abort(); return 0; }
 int MPI_Info_get_nkeys(MPI_Info info, int *nkeys) { abort(); return 0; }
 int MPI_Info_get_nthkey(MPI_Info info, int n, char *key) { abort(); return 0; }
 int MPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag) { abort(); return 0; }
-int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag) { abort(); return 0; }
 int MPI_Info_set(MPI_Info info, const char *key, const char *value) { abort(); return 0; }
 int MPI_Init(int *argc, char ***argv) { abort(); return 0; }
 int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) { abort(); return 0; }
@@ -948,11 +946,9 @@ int PMPI_Info_create_env(int argc, char *argv[], MPI_Info *info) { abort(); retu
 int PMPI_Info_delete(MPI_Info info, const char *key) { abort(); return 0; }
 int PMPI_Info_dup(MPI_Info info, MPI_Info *newinfo) { abort(); return 0; }
 int PMPI_Info_free(MPI_Info *info) { abort(); return 0; }
-int PMPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag) { abort(); return 0; }
 int PMPI_Info_get_nkeys(MPI_Info info, int *nkeys) { abort(); return 0; }
 int PMPI_Info_get_nthkey(MPI_Info info, int n, char *key) { abort(); return 0; }
 int PMPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag) { abort(); return 0; }
-int PMPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag) { abort(); return 0; }
 int PMPI_Info_set(MPI_Info info, const char *key, const char *value) { abort(); return 0; }
 int PMPI_Init(int *argc, char ***argv) { abort(); return 0; }
 int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) { abort(); return 0; }

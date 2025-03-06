@@ -845,11 +845,9 @@ int MPI_Info_create_env(int argc, char *argv[], MPI_Info *info);
 int MPI_Info_delete(MPI_Info info, const char *key);
 int MPI_Info_dup(MPI_Info info, MPI_Info *newinfo);
 int MPI_Info_free(MPI_Info *info);
-int MPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag); /* deprecated: MPI-4.0 */
 int MPI_Info_get_nkeys(MPI_Info info, int *nkeys);
 int MPI_Info_get_nthkey(MPI_Info info, int n, char *key);
 int MPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag);
-int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag); /* deprecated: MPI-4.0 */
 int MPI_Info_set(MPI_Info info, const char *key, const char *value);
 int MPI_Init(int *argc, char ***argv);
 int MPI_Init_thread(int *argc, char ***argv, int required, int *provided);
@@ -1501,11 +1499,9 @@ int PMPI_Info_create_env(int argc, char *argv[], MPI_Info *info);
 int PMPI_Info_delete(MPI_Info info, const char *key);
 int PMPI_Info_dup(MPI_Info info, MPI_Info *newinfo);
 int PMPI_Info_free(MPI_Info *info);
-int PMPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag);
 int PMPI_Info_get_nkeys(MPI_Info info, int *nkeys);
 int PMPI_Info_get_nthkey(MPI_Info info, int n, char *key);
 int PMPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag);
-int PMPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag);
 int PMPI_Info_set(MPI_Info info, const char *key, const char *value);
 int PMPI_Init(int *argc, char ***argv);
 int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided);
@@ -1868,6 +1864,14 @@ int PMPI_T_source_get_timestamp(int source_index, MPI_Count *timestamp);
 
 /* Backward-compatibility MPI API definitions for MPI ABI removals */
 
+#if !defined(MPI_ABI_static_inline)
+#  if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || defined(__cplusplus)
+#    define MPI_ABI_static_inline static inline
+#  else
+#    define MPI_ABI_static_inline static __inline
+#  endif
+#endif
+
 /* MPI deprecated types and constants */
 #define MPI_Copy_function              MPI_Comm_copy_attr_function
 #define MPI_Delete_function            MPI_Comm_delete_attr_function
@@ -1887,6 +1891,18 @@ int PMPI_T_source_get_timestamp(int source_index, MPI_Count *timestamp);
 #define MPI_Type_get_true_extent_x     MPI_Type_get_true_extent_c
 #define MPI_Type_size_x                MPI_Type_size_c
 
+MPI_ABI_static_inline int MPI_Info_get(MPI_Info MPI_info, const char *MPI_key, int MPI_valuelen, char *MPI_value, int *MPI_flag) {
+  int MPI_buflen = MPI_valuelen + 1;
+  return MPI_Info_get_string(MPI_info, MPI_key, &MPI_buflen, MPI_value, MPI_flag);
+}
+
+MPI_ABI_static_inline int MPI_Info_get_valuelen(MPI_Info MPI_info, const char *MPI_key, int *MPI_valuelen, int *MPI_flag) {
+  int MPI_ierr; int MPI_buflen = 0; char MPI_value[1] = {0};
+  MPI_ierr = MPI_Info_get_string(MPI_info, MPI_key, MPI_valuelen ? &MPI_buflen : MPI_valuelen, MPI_value, MPI_flag);
+  if (MPI_ierr == MPI_SUCCESS && MPI_valuelen) *MPI_valuelen = MPI_buflen - 1;
+  return MPI_ierr;
+}
+
 /* PMPI deprecated functions */
 #define PMPI_Attr_delete               PMPI_Comm_delete_attr
 #define PMPI_Attr_get                  PMPI_Comm_get_attr
@@ -1898,6 +1914,18 @@ int PMPI_T_source_get_timestamp(int source_index, MPI_Count *timestamp);
 #define PMPI_Type_get_extent_x         PMPI_Type_get_extent_c
 #define PMPI_Type_get_true_extent_x    PMPI_Type_get_true_extent_c
 #define PMPI_Type_size_x               PMPI_Type_size_c
+
+MPI_ABI_static_inline int PMPI_Info_get(MPI_Info MPI_info, const char *MPI_key, int MPI_valuelen, char *MPI_value, int *MPI_flag) {
+  int MPI_buflen = MPI_valuelen + 1;
+  return PMPI_Info_get_string(MPI_info, MPI_key, &MPI_buflen, MPI_value, MPI_flag);
+}
+
+MPI_ABI_static_inline int PMPI_Info_get_valuelen(MPI_Info MPI_info, const char *MPI_key, int *MPI_valuelen, int *MPI_flag) {
+  int MPI_ierr; int MPI_buflen = 0; char MPI_value[1] = {0};
+  MPI_ierr = PMPI_Info_get_string(MPI_info, MPI_key, MPI_valuelen ? &MPI_buflen : MPI_valuelen, MPI_value, MPI_flag);
+  if (MPI_ierr == MPI_SUCCESS && MPI_valuelen) *MPI_valuelen = MPI_buflen - 1;
+  return MPI_ierr;
+}
 
 #if defined(__cplusplus)
 }
