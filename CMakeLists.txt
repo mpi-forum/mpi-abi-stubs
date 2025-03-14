@@ -5,6 +5,7 @@ option(BUILD_SHARED_LIBS "Build libraries as SHARED" TRUE)
 
 add_library(mpi_abi mpistubs.c)
 set_target_properties(mpi_abi PROPERTIES VERSION 0)
+set_target_properties(mpi_abi PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
 
 include(GNUInstallDirs)
 install(FILES mpi.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

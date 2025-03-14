@@ -6,11 +6,17 @@ export PATH=${prefix}/bin:$PATH
 
 case "$(uname)" in
     Linux)
+        lib="lib"
         so=".so"
         ;;
     Darwin)
         ldd () { otool -L "$1"; }
+        lib="lib"
         so=".dylib"
+        ;;
+    *_NT-*)
+        lib=""
+        so=".dll"
         ;;
 esac
 
@@ -41,12 +47,10 @@ command -v mpicc
 command -v mpicxx
 echo "$(mpicc -show-incdir)/mpi.h":
 grep -E 'MPI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
-echo "$(mpicc -show-libdir)/lib$(mpicc -show-libs)$so":
-ldd "$(mpicc -show-libdir)/lib$(mpicc -show-libs)$so"
+echo "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so":
+ldd "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so"
 
 set -x
-
-RPATH=-Wl,-rpath,$(mpicc -show-libdir)
 
 mpicc -show
 mpicc -show-incdir
@@ -58,8 +62,8 @@ for cc in gcc clang; do
     diff cc.log mpicc.log
     mpicc -cc="$cc" ./helloworld.c -c
     test -f helloworld.o && rm helloworld.o
-    mpicc -cc="$cc" ./helloworld.c "$RPATH"
-    ldd a.out && rm a.out
+    mpicc -cc="$cc" ./helloworld.c -o hw.exe
+    ldd hw.exe && rm hw.exe
 done
 
 mpicxx -show
@@ -72,6 +76,6 @@ for cxx in g++ clang++; do
     diff cxx.log mpicxx.log
     mpicxx -cxx="$cxx" ./helloworld.cxx -c
     test -f helloworld.o && rm helloworld.o
-    mpicxx -cxx="$cxx" ./helloworld.cxx "$RPATH"
-    ldd a.out && rm a.out
+    mpicxx -cxx="$cxx" ./helloworld.cxx -o hw.exe
+    ldd hw.exe && rm hw.exe
 done

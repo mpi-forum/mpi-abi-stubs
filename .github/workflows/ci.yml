@@ -31,6 +31,8 @@ jobs:
           - macos-15
           - macos-14
           - macos-13
+          - windows-2022
+          - windows-2019
     steps:
     - uses: actions/checkout@v4
     - run:  bash -x build-cmake.sh
