@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5.0)
-project(mpi-stubs VERSION 4.2 LANGUAGES C)
+project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build libraries as SHARED" TRUE)
 
