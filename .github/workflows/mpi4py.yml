@@ -23,7 +23,7 @@ jobs:
     steps:
 
     - name: Checkout mpi-stubs
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: mpi-stubs
 
@@ -41,7 +41,7 @@ jobs:
         python-version: 3
 
     - name: Checkout mpi4py
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: mpi4py/mpi4py
         path: mpi4py
