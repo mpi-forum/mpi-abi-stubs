@@ -1032,9 +1032,9 @@ int MPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype, int dest, 
 int MPI_Ssend_init_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
 int MPI_Start(MPI_Request *request);
 int MPI_Startall(int count, MPI_Request array_of_requests[]);
-int MPI_Status_get_error(MPI_Status *status, int *error);
-int MPI_Status_get_source(MPI_Status *status, int *source);
-int MPI_Status_get_tag(MPI_Status *status, int *tag);
+int MPI_Status_get_error(const MPI_Status *status, int *error);
+int MPI_Status_get_source(const MPI_Status *status, int *source);
+int MPI_Status_get_tag(const MPI_Status *status, int *tag);
 int MPI_Status_set_cancelled(MPI_Status *status, int flag);
 int MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count);
 int MPI_Status_set_elements_c(MPI_Status *status, MPI_Datatype datatype, MPI_Count count);
@@ -1702,9 +1702,9 @@ int PMPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype, int dest,
 int PMPI_Ssend_init_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
 int PMPI_Start(MPI_Request *request);
 int PMPI_Startall(int count, MPI_Request array_of_requests[]);
-int PMPI_Status_get_error(MPI_Status *status, int *error);
-int PMPI_Status_get_source(MPI_Status *status, int *source);
-int PMPI_Status_get_tag(MPI_Status *status, int *tag);
+int PMPI_Status_get_error(const MPI_Status *status, int *error);
+int PMPI_Status_get_source(const MPI_Status *status, int *source);
+int PMPI_Status_get_tag(const MPI_Status *status, int *tag);
 int PMPI_Status_set_cancelled(MPI_Status *status, int flag);
 int PMPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count);
 int PMPI_Status_set_elements_c(MPI_Status *status, MPI_Datatype datatype, MPI_Count count);
