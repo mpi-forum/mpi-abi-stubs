@@ -36,7 +36,7 @@ jobs:
         echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$mpi_stubs/lib >> $GITHUB_ENV
 
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3
 
