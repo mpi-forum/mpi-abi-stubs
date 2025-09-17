@@ -92,8 +92,8 @@ jobs:
         ncx=$(nm $module | awk '/ MPI_.*_x$/' | wc -l)
         ncc=$(nm $module | awk '/ MPI_.*_c$/' | wc -l)
         test $nci -ge 149
-        test $ncx -eq 5
-        test $ncc -eq 0
+        test $ncx -eq 0
+        test $ncc -eq 5
 
     - name: Test mpi4py module (small-count)
       shell: python {0}
