@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
-meson setup build --prefix="${PREFIX:-$PWD}"
+prefix="${PREFIX:-$PWD}"
+meson setup build --prefix="$prefix"
 meson compile -C build
 meson install -C build
-(test -d lib64 && ln -f -s lib64 lib) || true
+(cd "$prefix" && test -d lib64 && ln -f -s lib64 lib) || true
