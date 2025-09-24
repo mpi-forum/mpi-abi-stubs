@@ -1,7 +1,7 @@
 project(
   'mpi-stubs',
   'c',
-  version: '4.2',
+  version: '5.0',
   license: 'MIT',
   meson_version: '>=1.0.0',
 )
