@@ -481,12 +481,12 @@ typedef MPI_Session_errhandler_function MPI_Session_errhandler_fn;
 
 /* MPI_T types and constants */
 
-typedef struct MPI_T_enum_t* MPI_T_enum;
-typedef struct MPI_T_cvar_handle_t* MPI_T_cvar_handle;
-typedef struct MPI_T_pvar_handle_t* MPI_T_pvar_handle;
-typedef struct MPI_T_pvar_session_t* MPI_T_pvar_session;
-typedef struct MPI_T_event_registration_t* MPI_T_event_registration;
-typedef struct MPI_T_event_instance_t* MPI_T_event_instance;
+typedef struct MPI_ABI_T_enum* MPI_T_enum;
+typedef struct MPI_ABI_T_cvar_handle* MPI_T_cvar_handle;
+typedef struct MPI_ABI_T_pvar_handle* MPI_T_pvar_handle;
+typedef struct MPI_ABI_T_pvar_session* MPI_T_pvar_session;
+typedef struct MPI_ABI_T_event_registration* MPI_T_event_registration;
+typedef struct MPI_ABI_T_event_instance* MPI_T_event_instance;
 
 #define MPI_T_ENUM_NULL                ((MPI_T_enum)0)
 #define MPI_T_CVAR_HANDLE_NULL         ((MPI_T_cvar_handle)0)
