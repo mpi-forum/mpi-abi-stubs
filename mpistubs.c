@@ -39,9 +39,6 @@ int MPI_Alltoallw(const void *sendbuf, const int sendcounts[], const int sdispls
 int MPI_Alltoallw_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm) { abort(); return 0; }
 int MPI_Alltoallw_init(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int MPI_Alltoallw_init_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
-int MPI_Attr_delete(MPI_Comm comm, int keyval) { abort(); return 0; }
-int MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) { abort(); return 0; }
-int MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) { abort(); return 0; }
 int MPI_Barrier(MPI_Comm comm) { abort(); return 0; }
 int MPI_Barrier_init(MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int MPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm) { abort(); return 0; }
@@ -233,7 +230,6 @@ int MPI_Get_count(const MPI_Status *status, MPI_Datatype datatype, int *count) {
 int MPI_Get_count_c(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype, int *count) { abort(); return 0; }
 int MPI_Get_elements_c(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
-int MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int MPI_Get_hw_resource_info(MPI_Info *hw_info) { abort(); return 0; }
 int MPI_Get_library_version(char *version, int *resultlen) { abort(); return 0; }
 int MPI_Get_processor_name(char *name, int *resultlen) { abort(); return 0; }
@@ -300,11 +296,9 @@ int MPI_Info_create_env(int argc, char *argv[], MPI_Info *info) { abort(); retur
 int MPI_Info_delete(MPI_Info info, const char *key) { abort(); return 0; }
 int MPI_Info_dup(MPI_Info info, MPI_Info *newinfo) { abort(); return 0; }
 int MPI_Info_free(MPI_Info *info) { abort(); return 0; }
-int MPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag) { abort(); return 0; }
 int MPI_Info_get_nkeys(MPI_Info info, int *nkeys) { abort(); return 0; }
 int MPI_Info_get_nthkey(MPI_Info info, int n, char *key) { abort(); return 0; }
 int MPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag) { abort(); return 0; }
-int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag) { abort(); return 0; }
 int MPI_Info_set(MPI_Info info, const char *key, const char *value) { abort(); return 0; }
 int MPI_Init(int *argc, char ***argv) { abort(); return 0; }
 int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) { abort(); return 0; }
@@ -338,8 +332,6 @@ int MPI_Isendrecv_replace(void *buf, int count, MPI_Datatype datatype, int dest,
 int MPI_Isendrecv_replace_c(void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int sendtag, int source, int recvtag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
 int MPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
 int MPI_Issend_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
-int MPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) { abort(); return 0; }
-int MPI_Keyval_free(int *keyval) { abort(); return 0; }
 int MPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name) { abort(); return 0; }
 int MPI_Mprobe(int source, int tag, MPI_Comm comm, MPI_Message *message, MPI_Status *status) { abort(); return 0; }
 int MPI_Mrecv(void *buf, int count, MPI_Datatype datatype, MPI_Message *message, MPI_Status *status) { abort(); return 0; }
@@ -479,7 +471,6 @@ int MPI_Status_get_tag(const MPI_Status *status, int *tag) { abort(); return 0; 
 int MPI_Status_set_cancelled(MPI_Status *status, int flag) { abort(); return 0; }
 int MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count) { abort(); return 0; }
 int MPI_Status_set_elements_c(MPI_Status *status, MPI_Datatype datatype, MPI_Count count) { abort(); return 0; }
-int MPI_Status_set_elements_x(MPI_Status *status, MPI_Datatype datatype, MPI_Count count) { abort(); return 0; }
 int MPI_Status_set_error(MPI_Status *status, int error) { abort(); return 0; }
 int MPI_Status_set_source(MPI_Status *status, int source) { abort(); return 0; }
 int MPI_Status_set_tag(MPI_Status *status, int tag) { abort(); return 0; }
@@ -523,11 +514,9 @@ int MPI_Type_get_envelope(MPI_Datatype datatype, int *num_integers, int *num_add
 int MPI_Type_get_envelope_c(MPI_Datatype datatype, MPI_Count *num_integers, MPI_Count *num_addresses, MPI_Count *num_large_counts, MPI_Count *num_datatypes, int *combiner) { abort(); return 0; }
 int MPI_Type_get_extent(MPI_Datatype datatype, MPI_Aint *lb, MPI_Aint *extent) { abort(); return 0; }
 int MPI_Type_get_extent_c(MPI_Datatype datatype, MPI_Count *lb, MPI_Count *extent) { abort(); return 0; }
-int MPI_Type_get_extent_x(MPI_Datatype datatype, MPI_Count *lb, MPI_Count *extent) { abort(); return 0; }
 int MPI_Type_get_name(MPI_Datatype datatype, char *type_name, int *resultlen) { abort(); return 0; }
 int MPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb, MPI_Aint *true_extent) { abort(); return 0; }
 int MPI_Type_get_true_extent_c(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent) { abort(); return 0; }
-int MPI_Type_get_true_extent_x(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent) { abort(); return 0; }
 int MPI_Type_get_value_index(MPI_Datatype value_type, MPI_Datatype index_type, MPI_Datatype *pair_type) { abort(); return 0; }
 int MPI_Type_indexed(int count, const int array_of_blocklengths[], const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int MPI_Type_indexed_c(MPI_Count count, const MPI_Count array_of_blocklengths[], const MPI_Count array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
@@ -536,7 +525,6 @@ int MPI_Type_set_attr(MPI_Datatype datatype, int type_keyval, void *attribute_va
 int MPI_Type_set_name(MPI_Datatype datatype, const char *type_name) { abort(); return 0; }
 int MPI_Type_size(MPI_Datatype datatype, int *size) { abort(); return 0; }
 int MPI_Type_size_c(MPI_Datatype datatype, MPI_Count *size) { abort(); return 0; }
-int MPI_Type_size_x(MPI_Datatype datatype, MPI_Count *size) { abort(); return 0; }
 int MPI_Type_vector(int count, int blocklength, int stride, MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int MPI_Type_vector_c(MPI_Count count, MPI_Count blocklength, MPI_Count stride, MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int MPI_Unpack(const void *inbuf, int insize, int *position, void *outbuf, int outcount, MPI_Datatype datatype, MPI_Comm comm) { abort(); return 0; }
@@ -709,9 +697,6 @@ int PMPI_Alltoallw(const void *sendbuf, const int sendcounts[], const int sdispl
 int PMPI_Alltoallw_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm) { abort(); return 0; }
 int PMPI_Alltoallw_init(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int PMPI_Alltoallw_init_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
-int PMPI_Attr_delete(MPI_Comm comm, int keyval) { abort(); return 0; }
-int PMPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) { abort(); return 0; }
-int PMPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) { abort(); return 0; }
 int PMPI_Barrier(MPI_Comm comm) { abort(); return 0; }
 int PMPI_Barrier_init(MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 int PMPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm) { abort(); return 0; }
@@ -903,7 +888,6 @@ int PMPI_Get_count(const MPI_Status *status, MPI_Datatype datatype, int *count) 
 int PMPI_Get_count_c(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int PMPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype, int *count) { abort(); return 0; }
 int PMPI_Get_elements_c(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
-int PMPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int PMPI_Get_hw_resource_info(MPI_Info *hw_info) { abort(); return 0; }
 int PMPI_Get_library_version(char *version, int *resultlen) { abort(); return 0; }
 int PMPI_Get_processor_name(char *name, int *resultlen) { abort(); return 0; }
@@ -970,11 +954,9 @@ int PMPI_Info_create_env(int argc, char *argv[], MPI_Info *info) { abort(); retu
 int PMPI_Info_delete(MPI_Info info, const char *key) { abort(); return 0; }
 int PMPI_Info_dup(MPI_Info info, MPI_Info *newinfo) { abort(); return 0; }
 int PMPI_Info_free(MPI_Info *info) { abort(); return 0; }
-int PMPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag) { abort(); return 0; }
 int PMPI_Info_get_nkeys(MPI_Info info, int *nkeys) { abort(); return 0; }
 int PMPI_Info_get_nthkey(MPI_Info info, int n, char *key) { abort(); return 0; }
 int PMPI_Info_get_string(MPI_Info info, const char *key, int *buflen, char *value, int *flag) { abort(); return 0; }
-int PMPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag) { abort(); return 0; }
 int PMPI_Info_set(MPI_Info info, const char *key, const char *value) { abort(); return 0; }
 int PMPI_Init(int *argc, char ***argv) { abort(); return 0; }
 int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) { abort(); return 0; }
@@ -1008,8 +990,6 @@ int PMPI_Isendrecv_replace(void *buf, int count, MPI_Datatype datatype, int dest
 int PMPI_Isendrecv_replace_c(void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int sendtag, int source, int recvtag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
 int PMPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
 int PMPI_Issend_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
-int PMPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) { abort(); return 0; }
-int PMPI_Keyval_free(int *keyval) { abort(); return 0; }
 int PMPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name) { abort(); return 0; }
 int PMPI_Mprobe(int source, int tag, MPI_Comm comm, MPI_Message *message, MPI_Status *status) { abort(); return 0; }
 int PMPI_Mrecv(void *buf, int count, MPI_Datatype datatype, MPI_Message *message, MPI_Status *status) { abort(); return 0; }
@@ -1149,7 +1129,6 @@ int PMPI_Status_get_tag(const MPI_Status *status, int *tag) { abort(); return 0;
 int PMPI_Status_set_cancelled(MPI_Status *status, int flag) { abort(); return 0; }
 int PMPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count) { abort(); return 0; }
 int PMPI_Status_set_elements_c(MPI_Status *status, MPI_Datatype datatype, MPI_Count count) { abort(); return 0; }
-int PMPI_Status_set_elements_x(MPI_Status *status, MPI_Datatype datatype, MPI_Count count) { abort(); return 0; }
 int PMPI_Status_set_error(MPI_Status *status, int error) { abort(); return 0; }
 int PMPI_Status_set_source(MPI_Status *status, int source) { abort(); return 0; }
 int PMPI_Status_set_tag(MPI_Status *status, int tag) { abort(); return 0; }
@@ -1193,11 +1172,9 @@ int PMPI_Type_get_envelope(MPI_Datatype datatype, int *num_integers, int *num_ad
 int PMPI_Type_get_envelope_c(MPI_Datatype datatype, MPI_Count *num_integers, MPI_Count *num_addresses, MPI_Count *num_large_counts, MPI_Count *num_datatypes, int *combiner) { abort(); return 0; }
 int PMPI_Type_get_extent(MPI_Datatype datatype, MPI_Aint *lb, MPI_Aint *extent) { abort(); return 0; }
 int PMPI_Type_get_extent_c(MPI_Datatype datatype, MPI_Count *lb, MPI_Count *extent) { abort(); return 0; }
-int PMPI_Type_get_extent_x(MPI_Datatype datatype, MPI_Count *lb, MPI_Count *extent) { abort(); return 0; }
 int PMPI_Type_get_name(MPI_Datatype datatype, char *type_name, int *resultlen) { abort(); return 0; }
 int PMPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb, MPI_Aint *true_extent) { abort(); return 0; }
 int PMPI_Type_get_true_extent_c(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent) { abort(); return 0; }
-int PMPI_Type_get_true_extent_x(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent) { abort(); return 0; }
 int PMPI_Type_get_value_index(MPI_Datatype value_type, MPI_Datatype index_type, MPI_Datatype *pair_type) { abort(); return 0; }
 int PMPI_Type_indexed(int count, const int array_of_blocklengths[], const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int PMPI_Type_indexed_c(MPI_Count count, const MPI_Count array_of_blocklengths[], const MPI_Count array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
@@ -1206,7 +1183,6 @@ int PMPI_Type_set_attr(MPI_Datatype datatype, int type_keyval, void *attribute_v
 int PMPI_Type_set_name(MPI_Datatype datatype, const char *type_name) { abort(); return 0; }
 int PMPI_Type_size(MPI_Datatype datatype, int *size) { abort(); return 0; }
 int PMPI_Type_size_c(MPI_Datatype datatype, MPI_Count *size) { abort(); return 0; }
-int PMPI_Type_size_x(MPI_Datatype datatype, MPI_Count *size) { abort(); return 0; }
 int PMPI_Type_vector(int count, int blocklength, int stride, MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int PMPI_Type_vector_c(MPI_Count count, MPI_Count blocklength, MPI_Count stride, MPI_Datatype oldtype, MPI_Datatype *newtype) { abort(); return 0; }
 int PMPI_Unpack(const void *inbuf, int insize, int *position, void *outbuf, int outcount, MPI_Datatype datatype, MPI_Comm comm) { abort(); return 0; }
