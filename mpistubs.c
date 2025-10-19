@@ -2,7 +2,7 @@
 #include "mpi.h"
 
 /* MPI functions */
-int MPI_Abi_get_fortran_booleans(int logical_size, void *logical_true, void *logical_false) { abort(); return 0; }
+int MPI_Abi_get_fortran_booleans(int logical_size, void *logical_true, void *logical_false, int *is_set) { abort(); return 0; }
 int MPI_Abi_get_fortran_info(MPI_Info *info) { abort(); return 0; }
 int MPI_Abi_get_info(MPI_Info *info) { abort(); return 0; }
 int MPI_Abi_get_version(int *abi_major, int *abi_minor) { abort(); return 0; }
@@ -672,7 +672,7 @@ int MPI_T_source_get_num(int *num_sources) { abort(); return 0; }
 int MPI_T_source_get_timestamp(int source_index, MPI_Count *timestamp) { abort(); return 0; }
 
 /* PMPI functions */
-int PMPI_Abi_get_fortran_booleans(int logical_size, void *logical_true, void *logical_false) { abort(); return 0; }
+int PMPI_Abi_get_fortran_booleans(int logical_size, void *logical_true, void *logical_false, int *is_set) { abort(); return 0; }
 int PMPI_Abi_get_fortran_info(MPI_Info *info) { abort(); return 0; }
 int PMPI_Abi_get_info(MPI_Info *info) { abort(); return 0; }
 int PMPI_Abi_get_version(int *abi_major, int *abi_minor) { abort(); return 0; }
