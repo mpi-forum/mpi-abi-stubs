@@ -1,11 +1,57 @@
 #include <stdlib.h>
 #include "mpi.h"
 
+/* Basic runtime implementation */
+
+static int stubs_is_initialized = 0;
+static int stubs_is_finalized = 0;
+
+static int stubs_initialized(int *flag)
+{
+  if (flag) *flag = stubs_is_initialized;
+  return 0;
+}
+
+static int stubs_finalized(int *flag)
+{
+  if (flag) *flag = stubs_is_finalized;
+  return 0;
+}
+
+static int stubs_get_version(int *version, int *subversion)
+{
+  if (version) *version = MPI_VERSION;
+  if (subversion) *subversion = MPI_SUBVERSION;
+  return 0;
+}
+
+static int stubs_abi_get_version(int *abi_major, int *abi_minor)
+{
+  if (abi_major) *abi_major = MPI_ABI_VERSION;
+  if (abi_minor) *abi_minor = MPI_ABI_SUBVERSION;
+  return 0;
+}
+
+static int stubs_get_library_version(char *version, int *resultlen)
+{
+  unsigned i = 0;
+  char str[] = "MPI ABI 0.0";
+  while (str[i] != '0') i++;
+  str[i++] += (char) MPI_ABI_VERSION;
+  str[++i] += (char) MPI_ABI_SUBVERSION;
+  if (version)
+    for (i = 0; i < sizeof(str); i++)
+      version[i] = str[i];
+  if (resultlen)
+    *resultlen = sizeof(str) - 1;
+  return 0;
+}
+
 /* MPI functions */
 int MPI_Abi_get_fortran_booleans(int logical_size, void *logical_true, void *logical_false, int *is_set) { abort(); return 0; }
 int MPI_Abi_get_fortran_info(MPI_Info *info) { abort(); return 0; }
 int MPI_Abi_get_info(MPI_Info *info) { abort(); return 0; }
-int MPI_Abi_get_version(int *abi_major, int *abi_minor) { abort(); return 0; }
+int MPI_Abi_get_version(int *abi_major, int *abi_minor) { return stubs_abi_get_version(abi_major, abi_minor); }
 int MPI_Abi_set_fortran_booleans(int logical_size, void *logical_true, void *logical_false) { abort(); return 0; }
 int MPI_Abi_set_fortran_info(MPI_Info info) { abort(); return 0; }
 int MPI_Abort(MPI_Comm comm, int errorcode) { abort(); return 0; }
@@ -214,7 +260,7 @@ int MPI_File_write_ordered_end(MPI_File fh, const void *buf, MPI_Status *status)
 int MPI_File_write_shared(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status) { abort(); return 0; }
 int MPI_File_write_shared_c(MPI_File fh, const void *buf, MPI_Count count, MPI_Datatype datatype, MPI_Status *status) { abort(); return 0; }
 int MPI_Finalize(void) { abort(); return 0; }
-int MPI_Finalized(int *flag) { abort(); return 0; }
+int MPI_Finalized(int *flag) { return stubs_finalized(flag); }
 int MPI_Free_mem(void *base) { abort(); return 0; }
 int MPI_Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm) { abort(); return 0; }
 int MPI_Gather_c(const void *sendbuf, MPI_Count sendcount, MPI_Datatype sendtype, void *recvbuf, MPI_Count recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm) { abort(); return 0; }
@@ -235,9 +281,9 @@ int MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype, int *count
 int MPI_Get_elements_c(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count) { abort(); return 0; }
 int MPI_Get_hw_resource_info(MPI_Info *hw_info) { abort(); return 0; }
-int MPI_Get_library_version(char *version, int *resultlen) { abort(); return 0; }
+int MPI_Get_library_version(char *version, int *resultlen) { return stubs_get_library_version(version, resultlen); }
 int MPI_Get_processor_name(char *name, int *resultlen) { abort(); return 0; }
-int MPI_Get_version(int *version, int *subversion) { abort(); return 0; }
+int MPI_Get_version(int *version, int *subversion) { return stubs_get_version(version, subversion); }
 int MPI_Graph_create(MPI_Comm comm_old, int nnodes, const int indx[], const int edges[], int reorder, MPI_Comm *comm_graph) { abort(); return 0; }
 int MPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges, int indx[], int edges[]) { abort(); return 0; }
 int MPI_Graph_map(MPI_Comm comm, int nnodes, const int indx[], const int edges[], int *newrank) { abort(); return 0; }
@@ -308,7 +354,7 @@ int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *fl
 int MPI_Info_set(MPI_Info info, const char *key, const char *value) { abort(); return 0; }
 int MPI_Init(int *argc, char ***argv) { abort(); return 0; }
 int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) { abort(); return 0; }
-int MPI_Initialized(int *flag) { abort(); return 0; }
+int MPI_Initialized(int *flag) { return stubs_initialized(flag); }
 int MPI_Intercomm_create(MPI_Comm local_comm, int local_leader, MPI_Comm peer_comm, int remote_leader, int tag, MPI_Comm *newintercomm) { abort(); return 0; }
 int MPI_Intercomm_create_from_groups(MPI_Group local_group, int local_leader, MPI_Group remote_group, int remote_leader, const char *stringtag, MPI_Info info, MPI_Errhandler errhandler, MPI_Comm *newintercomm) { abort(); return 0; }
 int MPI_Intercomm_merge(MPI_Comm intercomm, int high, MPI_Comm *newintracomm) { abort(); return 0; }
