@@ -31,14 +31,19 @@ prog_vars = {
     'op': 'cxx',
   },
 }
-foreach prog: ['mpicc', 'mpicxx']
+foreach script: ['mpicc', 'mpicxx']
   configure_file(
     input: 'mpicc.in',
-    configuration: prog_dirs + prog_vars[prog],
-    output: prog,
+    configuration: prog_dirs + prog_vars[script],
+    output: script,
     install: true,
     install_dir: bindir,
     install_mode: 'rwxr-xr-x',
+  )
+  install_symlink(
+    script + '_abi',
+    pointing_to : script,
+    install_dir : bindir,
   )
 endforeach
 

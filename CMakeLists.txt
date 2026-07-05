@@ -36,3 +36,23 @@ install(
   PERMISSIONS ${permissions}
   DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+foreach(script mpicc mpicxx)
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.14.0")
+    file(CREATE_LINK
+      ${script} ${CMAKE_BINARY_DIR}/${script}_abi
+      SYMBOLIC COPY_ON_ERROR
+    )
+  else()
+    add_custom_target(${script}_abi ALL VERBATIM
+      DEPENDS ${CMAKE_BINARY_DIR}/${script}
+      BYPRODUCTS ${CMAKE_BINARY_DIR}/${script}_abi
+      COMMAND ${CMAKE_COMMAND} -E create_symlink
+      ${script} ${CMAKE_BINARY_DIR}/${script}_abi
+    )
+  endif()
+  install(
+    FILES ${CMAKE_BINARY_DIR}/${script}_abi
+    PERMISSIONS ${permissions}
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
+endforeach()

@@ -15,6 +15,8 @@ LIBDIR = lib
 
 BUILD = build
 
+CP = cp
+CP_P = $(CP) -P
 LN = ln -f
 LN_S = $(LN) -s
 MKDIR = mkdir -p
@@ -66,6 +68,8 @@ $(BUILD)/mpicc $(BUILD)/mpicxx : mpicc.in | $$(@D)/.DIR
 	$(SED_I) -e 's/@CC@/$(CC)/g' $@
 	$(SED_I) -e 's/@cc@/$(cc)/g' $@
 	$(SED_I) -e 's/@op@/$(op)/g' $@
+$(BUILD)/mpicc_abi $(BUILD)/mpicxx_abi: | $$(@D)/.DIR
+	cd $(@D) && $(LN_S) $(@F:_abi=) $(@F)
 
 $(BUILD)/$(LIBFILE): $(SOURCE_C) $(SOURCE_H) | $$(@D)/.DIR
 	$(LINK.c) -shared $(call soname,$(notdir $@)) -o $@ $<
@@ -87,8 +91,10 @@ DESTLIBDIR = $(DESTDIR)$(PREFIX)/$(LIBDIR)
 
 .PHONY: install install-scripts install-headers install-library
 install: install-scripts install-headers install-library
-install-scripts: $(foreach f,$(SCRIPTS),$(BUILD)/$(f)) | $(DESTBINDIR)/.
+scripts = $(foreach f,$(SCRIPTS),$(BUILD)/$(f))
+install-scripts: $(scripts) | $(DESTBINDIR)/. $(addsuffix _abi,$(scripts))
 	install -c -m 755 $^ $(DESTBINDIR)
+	$(CP_P) $(addsuffix _abi,$^) $(DESTBINDIR)
 install-headers: $(SOURCE_H) | $(DESTINCDIR)/.
 	install -c -m 644 $^ $(DESTINCDIR)
 install-library: $(BUILD)/$(LIBFILE) | $(DESTLIBDIR)/.
@@ -98,9 +104,10 @@ install-library: $(BUILD)/$(LIBFILE) | $(DESTLIBDIR)/.
 .PHONY: uninstall uninstall-scripts uninstall-headers uninstall-library
 uninstall: uninstall-scripts uninstall-headers uninstall-library
 uninstall-scripts:
-	-$(RM) -r $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f))
+	-$(RM) $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f))
+	-$(RM) $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f)_abi)
 uninstall-headers:
-	-$(RM) -r $(foreach f,$(SOURCE_H),$(DESTINCDIR)/$(f))
+	-$(RM) $(foreach f,$(SOURCE_H),$(DESTINCDIR)/$(f))
 uninstall-library:
 	-$(RM) $(DESTLIBDIR)/$(LIBFILE)
 	-$(RM) $(DESTLIBDIR)/$(LIBLINK)
