@@ -6,7 +6,7 @@ SCRIPTS  = mpicc mpicxx
 SOURCE_H = mpi.h
 SOURCE_C = mpistubs.c
 LIBNAME  = mpi_abi
-VERSION  = 0
+VERSION  = 1
 
 PREFIX = .
 BINDIR = bin

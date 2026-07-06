@@ -49,6 +49,6 @@ install_headers(
 library(
   'mpi_abi',
   'mpistubs.c',
-  version: '0',
+  version: '1',
   install : true,
 )
