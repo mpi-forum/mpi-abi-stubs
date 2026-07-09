@@ -107,4 +107,4 @@ uninstall-library:
 
 .PHONY: clean
 clean:
-	-$(RM) -r build install bin include lib lib64
+	-$(RM) -r build install bin include lib

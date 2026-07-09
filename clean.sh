@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -fr build install bin include lib lib64
+rm -fr build install bin include lib
