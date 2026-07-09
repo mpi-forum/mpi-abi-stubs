@@ -1,0 +1,8 @@
+option(
+  'build_rpath', type: 'string', value: '',
+  description: 'Build RPATH'
+)
+option(
+  'install_rpath', type: 'string', value: '',
+  description: 'Install RPATH'
+)
