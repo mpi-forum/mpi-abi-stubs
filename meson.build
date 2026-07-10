@@ -46,9 +46,12 @@ install_headers(
   'mpi.h'
 )
 
+mpi_source = get_option('mpi_source')
+
 library(
   'mpi_abi',
-  'mpistubs.c',
+  mpi_source,
   version: '1',
   install : true,
+  pic : true,
 )

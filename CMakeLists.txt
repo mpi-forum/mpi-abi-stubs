@@ -3,9 +3,11 @@ project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build libraries as SHARED" TRUE)
 
-add_library(mpi_abi mpistubs.c)
+set(MPI_SOURCE mpistubs.c CACHE STRING "MPI implementation source")
+add_library(mpi_abi "${MPI_SOURCE}")
 set_target_properties(mpi_abi PROPERTIES VERSION 1)
 set_target_properties(mpi_abi PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
+set_target_properties(mpi_abi PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 include(GNUInstallDirs)
 install(FILES mpi.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

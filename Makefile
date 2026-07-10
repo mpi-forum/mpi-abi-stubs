@@ -4,7 +4,8 @@ default: install
 
 SCRIPTS  = mpicc mpicxx
 SOURCE_H = mpi.h
-SOURCE_C = mpistubs.c
+MPI_SOURCE ?= mpistubs.c
+SOURCE_C = $(MPI_SOURCE)
 LIBNAME  = mpi_abi
 VERSION  = 1
 
@@ -43,11 +44,13 @@ ifndef CFLAGS
     CFLAGS += -pedantic -Wall -Wextra
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
+    CFLAGS += -fPIC
   else
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Weverything
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
+    CFLAGS += -fPIC
   endif
 endif
 
