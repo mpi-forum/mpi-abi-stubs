@@ -3,7 +3,7 @@ project(
   'c',
   version: '5.0',
   license: 'MIT',
-  meson_version: '>=1.0.0',
+  meson_version: '>=1.1.0',
 )
 
 fs = import('fs')
