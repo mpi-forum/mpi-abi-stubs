@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
-prefix=${PREFIX:-$PWD}
+: "${PREFIX=$PWD}"
 set -- --libdir=lib "$@"
-meson setup build --prefix="$prefix" --buildtype=release "$@"
+meson setup build --prefix="$PREFIX" --buildtype=release "$@"
 meson compile -C build
 meson install -C build
