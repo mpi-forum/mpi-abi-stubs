@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10.0...4.3.0)
 project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
 
-set(SOURCE_H mpi.h)
-set(SOURCE_C mpistubs.c)
+set(SOURCE_H mpi.h      CACHE FILEPATH "MPI ABI implementation header")
+set(SOURCE_C mpistubs.c CACHE FILEPATH "MPI ABI implementation source")
 
 function(get_version header name outvar)
   set(regex "^[ \t]*#[ \t]*define[ \t]+${name}[ \t]+([0-9]+)[ \t]*$")

@@ -6,8 +6,8 @@ project(
   meson_version: '>=1.1.0',
 )
 
-source_h = 'mpi.h'
-source_c = 'mpistubs.c'
+source_h = get_option('source_h')
+source_c = get_option('source_c')
 
 fs = import('fs')
 prefix = get_option('prefix')
