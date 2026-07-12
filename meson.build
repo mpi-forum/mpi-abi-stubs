@@ -46,7 +46,7 @@ install_headers(
   'mpi.h'
 )
 
-library(
+shared_library(
   'mpi_abi',
   'mpistubs.c',
   version: '1',

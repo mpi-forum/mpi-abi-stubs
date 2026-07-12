@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.10.0...4.3.0)
 project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
 
-option(BUILD_SHARED_LIBS "Build libraries as SHARED" TRUE)
-
-add_library(mpi_abi mpistubs.c)
+add_library(mpi_abi SHARED mpistubs.c)
 set_target_properties(mpi_abi PROPERTIES VERSION 1)
 set_target_properties(mpi_abi PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
 
