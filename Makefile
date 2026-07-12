@@ -37,19 +37,26 @@ LIBLINK = $(subst .$(VERSION),,$(LIBFILE))
 ifndef CFLAGS
   cc_std = c89
   cc_version := $(shell $(CC) --version)
-  cc_is_gnu  := $(if $(findstring Free Software Foundation,$(cc_version)),1)
+  cc_is_gnu  := $(if $(findstring GCC,$(cc_version)),1)
+  cc_is_llvm := $(if $(findstring clang,$(cc_version)),1)
   ifdef cc_is_gnu
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Wall -Wextra
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
-  else
+  endif
+  ifdef cc_is_llvm
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Weverything
+    CFLAGS += -Wno-poison-system-directories
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
+    CFLAGS += -Wno-unsafe-buffer-usage
   endif
 endif
+cc-check = $(CC) $1 -S -o /dev/null -x c /dev/null > /dev/null 2>&1
+cc-option = $(shell $(call cc-check,$1) && echo "$1")
+override CFLAGS += $(call cc-option,-fPIC)
 
 .SECONDEXPANSION: # to expand $$(@D)/.DIR
 
