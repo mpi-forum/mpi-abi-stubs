@@ -1,0 +1,8 @@
+option(
+  'source_h', type: 'string', value: 'mpi.h',
+  description: 'MPI ABI implementation header'
+)
+option(
+  'source_c', type: 'string', value: 'mpistubs.c',
+  description: 'MPI ABI implementation source'
+)

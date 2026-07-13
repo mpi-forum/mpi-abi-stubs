@@ -1,16 +1,22 @@
-cmake_minimum_required(VERSION 3.5.0...4.1.0)
+cmake_minimum_required(VERSION 3.10.0...4.3.0)
 project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
 
-option(BUILD_SHARED_LIBS "Build libraries as SHARED" TRUE)
+set(SOURCE_H mpi.h      CACHE FILEPATH "MPI ABI implementation header")
+set(SOURCE_C mpistubs.c CACHE FILEPATH "MPI ABI implementation source")
 
-add_library(mpi_abi mpistubs.c)
-set_target_properties(mpi_abi PROPERTIES VERSION 1)
-set_target_properties(mpi_abi PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
+function(get_version header name outvar)
+  set(regex "^[ \t]*#[ \t]*define[ \t]+${name}[ \t]+([0-9]+)[ \t]*$")
+  file(STRINGS ${header} value REGEX ${regex})
+  if("${value}" STREQUAL "")
+    message(FATAL_ERROR "${name} not found in ${header}")
+  endif()
+  string(REGEX REPLACE ${regex} "\\1" value ${value})
+  set(${outvar} ${value} PARENT_SCOPE)
+endfunction()
+get_version(${SOURCE_H} MPI_ABI_VERSION    ABI_MAJOR)
+get_version(${SOURCE_H} MPI_ABI_SUBVERSION ABI_MINOR)
 
 include(GNUInstallDirs)
-install(FILES mpi.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(TARGETS mpi_abi DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
 set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
 set(permissions
@@ -36,3 +42,41 @@ install(
   PERMISSIONS ${permissions}
   DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+set(LIBNAME mpi_abi)
+set(VERSION ${ABI_MAJOR}.${ABI_MINOR})
+set(SOVERSION ${ABI_MAJOR})
+add_library(${LIBNAME} SHARED ${SOURCE_C})
+set_target_properties(
+  ${LIBNAME} PROPERTIES
+  SOVERSION ${SOVERSION}
+  MACHO_COMPATIBILITY_VERSION 0
+  MACHO_CURRENT_VERSION 0
+  DLL_NAME_WITH_SOVERSION FALSE
+  WINDOWS_EXPORT_ALL_SYMBOLS TRUE
+)
+install(TARGETS ${LIBNAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+if(APPLE AND CMAKE_VERSION VERSION_LESS 3.17.0)
+  get_target_property(v1 ${LIBNAME} MACHO_COMPATIBILITY_VERSION)
+  get_target_property(v2 ${LIBNAME} MACHO_CURRENT_VERSION)
+  set(ldflags "-compatibility_version,${v1},-current_version,${v2}")
+  if(CMAKE_VERSION VERSION_LESS 3.12.0)
+    set_target_properties(${LIBNAME} PROPERTIES LINK_FLAGS "-Wl,${ldflags}")
+  else()
+    target_link_options( ${LIBNAME} PRIVATE "LINKER:${ldflags}")
+  endif()
+endif()
+
+if(WIN32 AND CMAKE_VERSION VERSION_LESS 3.27.0)
+  get_target_property(versioned_dll_name ${LIBNAME} DLL_NAME_WITH_SOVERSION)
+  if(versioned_dll_name)
+    set_target_properties(
+      ${LIBNAME} PROPERTIES
+      ARCHIVE_OUTPUT_NAME ${LIBNAME}
+      RUNTIME_OUTPUT_NAME ${LIBNAME}-${SOVERSION}
+    )
+  endif()
+endif()
