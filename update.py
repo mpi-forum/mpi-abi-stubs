@@ -6,6 +6,44 @@ import re
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+# Update VERSION
+# --------------
+
+# get MPI ABI version from mpi.h
+abi_major = abi_minor = -1
+with open("mpi.h") as file:
+    for line in file:
+        if line.startswith("#define MPI_ABI_VERSION"):
+            abi_major = int(line.split()[-1])
+        if line.startswith("#define MPI_ABI_SUBVERSION"):
+            abi_minor = int(line.split()[-1])
+        if abi_major >= 1 and abi_minor >= 0:
+            break
+if abi_major < 1:
+    message = "Cannot find MPI_ABI_VERSION in mpi.h"
+    raise RuntimeError(message)
+if abi_minor < 0:
+    message = "Cannot find MPI_ABI_SUBVERSION in mpi.h"
+    raise RuntimeError(message)
+abi_version = (abi_major, abi_minor)
+
+# read original VERSION
+with open("VERSION") as file:
+    version = tuple(map(int, file.read().split(".")))
+if version[:2] > abi_version:
+    message = "Version in VERSION file greater than ABI version"
+    raise RuntimeError(message)
+
+# update version tuple
+if version[:2] < abi_version:
+    version = (*abi_version, 0)
+
+# write updated VERSION
+with open("VERSION", "w") as file:
+    file.write(".".join(map(str, version)))
+    file.write("\n")
+
+
 # Update mpi.h
 # ------------
 

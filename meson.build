@@ -1,7 +1,7 @@
 project(
   'mpi-stubs',
   'c',
-  version: '5.0',
+  version: files('VERSION'),
   license: 'MIT',
   meson_version: '>=1.1.0',
 )
@@ -76,7 +76,6 @@ install_headers(
 )
 
 libname = 'mpi_abi'
-version = f'@abi_major@.@abi_minor@'
 soversion = f'@abi_major@'
 shared_library(
   libname,

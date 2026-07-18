@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.10.0...4.3.0)
-project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
+file(STRINGS "VERSION" PROJECT_VERSION LIMIT_COUNT 1)
+string(STRIP ${PROJECT_VERSION} PROJECT_VERSION)
+project(mpi-abi-stubs VERSION ${PROJECT_VERSION} LANGUAGES C)
 
 set(SOURCE_H mpi.h    CACHE FILEPATH "MPI ABI implementation header")
 set(SOURCE_C mpilib.c CACHE FILEPATH "MPI ABI implementation source")
@@ -57,7 +59,6 @@ install(
 install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 set(LIBNAME mpi_abi)
-set(VERSION ${ABI_MAJOR}.${ABI_MINOR})
 set(SOVERSION ${ABI_MAJOR})
 add_library(${LIBNAME} SHARED ${SOURCE_C})
 set_target_properties(
