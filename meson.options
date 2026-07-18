@@ -3,6 +3,10 @@ option(
   description: 'MPI ABI implementation header'
 )
 option(
-  'source_c', type: 'string', value: 'mpistubs.c',
+  'source_c', type: 'string', value: 'mpilib.c',
   description: 'MPI ABI implementation source'
+)
+option(
+  'relocatable', type: 'boolean', value: false,
+  description: 'Relocatable install'
 )

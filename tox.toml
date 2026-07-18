@@ -1,0 +1,19 @@
+# https://tox.wiki/en/stable/
+
+env_list = ["lint"]
+
+[env.lint]
+description = "Run linters"
+skip_install = true
+dependency_groups = ["lint"]
+allowlist_externals = ["git"]
+commands = [
+    ["ruff", "check"],
+    ["ruff", "format", "--diff"],
+    ["ty", "check"],
+    ["vermin", "."],
+    ["codespell"],
+    ["yamllint", "."],
+    ["{envpython}", "update.py"],
+    ["git", "diff", "--exit-code"],
+]

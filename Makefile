@@ -3,19 +3,30 @@
 default: install
 
 SOURCE_H = mpi.h
-SOURCE_C = mpistubs.c
-
-PREFIX = .
-BINDIR = bin
-INCDIR = include
-LIBDIR = lib
-
-BUILD = build
+SOURCE_C = mpilib.c
 
 ABI_MAJOR := $(shell awk '/MPI_ABI_VERSION/{print $$NF}' ${SOURCE_H})
 ABI_MINOR := $(shell awk '/MPI_ABI_SUBVERSION/{print $$NF}' ${SOURCE_H})
 $(if $(ABI_MAJOR),,$(error MPI_ABI_VERSION not found in $(SOURCE_H)))
 $(if $(ABI_MINOR),,$(error MPI_ABI_SUBVERSION not found in $(SOURCE_H)))
+
+UNAME_S := $(shell uname -s)
+
+PREFIX = .
+BINDIR = bin
+INCDIR = include
+LIBDIR = lib
+ifdef RELOCATABLE
+  prefix = $$(CDPATH='\'''\'' cd -- "$$(dirname -- "$$0")"/.. \&\& pwd)
+else
+  prefix = "$(abspath $(PREFIX))"
+endif
+bindir = $$prefix/$(BINDIR)
+incdir = $$prefix/$(INCDIR)
+libdir = $$prefix/$(LIBDIR)
+rpath  = $(if $(findstring _NT-,$(UNAME_S)),$$bindir,$$libdir)
+
+BUILD = build
 
 LN = ln -f
 LN_S = $(LN) -s
@@ -25,7 +36,6 @@ RANLIB = ranlib
 LIBNAME = mpi_abi
 VERSION = $(ABI_MAJOR).$(ABI_MINOR)
 SOVERSION = $(ABI_MAJOR)
-UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
   SED_I = sed -i
   libfilename = lib$1.so.$2
@@ -77,8 +87,11 @@ $(BUILD)/mpicxx: override cc := c++
 $(BUILD)/mpicxx: override op := cxx
 $(BUILD)/mpicc $(BUILD)/mpicxx : mpicc.in | $$(@D)/.DIR
 	cp $< $@
-	$(SED_I) -e 's:@includedir@:$(abspath $(PREFIX))/$(INCDIR):' $@
-	$(SED_I) -e 's:@libdir@:$(abspath $(PREFIX))/$(LIBDIR):' $@
+	$(SED_I) -e 's:@prefix@:$(prefix):' $@
+	$(SED_I) -e 's:@bindir@:$(bindir):' $@
+	$(SED_I) -e 's:@incdir@:$(incdir):' $@
+	$(SED_I) -e 's:@libdir@:$(libdir):' $@
+	$(SED_I) -e 's:@rpath@:$(rpath):' $@
 	$(SED_I) -e 's/@CC@/$(CC)/g' $@
 	$(SED_I) -e 's/@cc@/$(cc)/g' $@
 	$(SED_I) -e 's/@op@/$(op)/g' $@

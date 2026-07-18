@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.10.0...4.3.0)
-project(mpi-abi-stubs VERSION 5.0 LANGUAGES C)
+file(STRINGS "VERSION" PROJECT_VERSION LIMIT_COUNT 1)
+string(STRIP ${PROJECT_VERSION} PROJECT_VERSION)
+project(mpi-abi-stubs VERSION ${PROJECT_VERSION} LANGUAGES C)
 
-set(SOURCE_H mpi.h      CACHE FILEPATH "MPI ABI implementation header")
-set(SOURCE_C mpistubs.c CACHE FILEPATH "MPI ABI implementation source")
+set(SOURCE_H mpi.h    CACHE FILEPATH "MPI ABI implementation header")
+set(SOURCE_C mpilib.c CACHE FILEPATH "MPI ABI implementation source")
 
 function(get_version header name outvar)
   set(regex "^[ \t]*#[ \t]*define[ \t]+${name}[ \t]+([0-9]+)[ \t]*$")
@@ -17,8 +19,36 @@ get_version(${SOURCE_H} MPI_ABI_VERSION    ABI_MAJOR)
 get_version(${SOURCE_H} MPI_ABI_SUBVERSION ABI_MINOR)
 
 include(GNUInstallDirs)
-set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
-set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
+option(RELOCATABLE "Relocatable install" FALSE)
+if(RELOCATABLE)
+  set(prefix "$(CDPATH='' cd -- \"$(dirname -- \"$0\")\"/.. && pwd)")
+  set(bindir $prefix/${CMAKE_INSTALL_BINDIR})
+  set(incdir $prefix/${CMAKE_INSTALL_INCLUDEDIR})
+  set(libdir $prefix/${CMAKE_INSTALL_LIBDIR})
+else()
+  set(prefix \"${CMAKE_INSTALL_PREFIX}\")
+  if(IS_ABSOLUTE ${CMAKE_INSTALL_BINDIR})
+    set(bindir \"${CMAKE_INSTALL_FULL_BINDIR}\")
+  else()
+    set(bindir $prefix/${CMAKE_INSTALL_BINDIR})
+  endif()
+  if(IS_ABSOLUTE ${CMAKE_INSTALL_INCLUDEDIR})
+    set(incdir \"${CMAKE_INSTALL_FULL_INCLUDEDIR}\")
+  else()
+    set(incdir $prefix/${CMAKE_INSTALL_INCLUDEDIR})
+  endif()
+  if(IS_ABSOLUTE ${CMAKE_INSTALL_LIBDIR})
+    set(libdir \"${CMAKE_INSTALL_FULL_LIBDIR}\")
+  else()
+    set(libdir $prefix/${CMAKE_INSTALL_LIBDIR})
+  endif()
+endif()
+if(WIN32)
+  set(rpath $bindir)
+else()
+  set(rpath $libdir)
+endif()
+
 set(permissions
   OWNER_READ OWNER_WRITE OWNER_EXECUTE
   GROUP_READ GROUP_EXECUTE
@@ -46,7 +76,6 @@ install(
 install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 set(LIBNAME mpi_abi)
-set(VERSION ${ABI_MAJOR}.${ABI_MINOR})
 set(SOVERSION ${ABI_MAJOR})
 add_library(${LIBNAME} SHARED ${SOURCE_C})
 set_target_properties(
@@ -57,7 +86,12 @@ set_target_properties(
   DLL_NAME_WITH_SOVERSION FALSE
   WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
-install(TARGETS ${LIBNAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(
+  TARGETS ${LIBNAME}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
 
 if(APPLE AND CMAKE_VERSION VERSION_LESS 3.17.0)
   get_target_property(v1 ${LIBNAME} MACHO_COMPATIBILITY_VERSION)
@@ -79,4 +113,22 @@ if(WIN32 AND CMAKE_VERSION VERSION_LESS 3.27.0)
       RUNTIME_OUTPUT_NAME ${LIBNAME}-${SOVERSION}
     )
   endif()
+endif()
+
+if(WIN32 AND SKBUILD)
+  set(template ${CMAKE_BINARY_DIR}/wrapper.in)
+  file(WRITE ${template} [[
+#!/bin/sh
+venvdir=$(CDPATH='' cd -- "$(dirname -- "$0")"/.. && pwd)
+exec "$venvdir/Library/bin/@script@" "$@"
+]])
+  foreach(script mpicc mpicxx)
+    set(wrapper ${CMAKE_BINARY_DIR}/${script}-wrapper)
+    configure_file(${template} ${wrapper} @ONLY)
+    install(
+      FILES ${wrapper} RENAME ${script}
+      PERMISSIONS ${permissions}
+      DESTINATION ${SKBUILD_SCRIPTS_DIR}
+    )
+  endforeach()
 endif()

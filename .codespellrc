@@ -1,0 +1,16 @@
+#-*- mode: conf -*-
+# https://github.com/codespell-project/codespell
+
+[codespell]
+check-hidden =
+check-filenames =
+skip =
+  build,
+  install,
+  dist,
+  .git,
+  .tox,
+  .venv,
+  .*_cache,
+ignore-words-list =
+  indx,

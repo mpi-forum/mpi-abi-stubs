@@ -18,6 +18,49 @@ permissions:
 
 jobs:
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-python@v6
+      with:
+        python-version: 3
+        pip-install: --group lint
+        cache: pip
+    - run: python update.py
+    - run: git diff --exit-code
+    - run: ruff check
+    - run: ruff format --diff
+    - run: ty check
+    - run: shellcheck *.sh test/*.sh
+    - run: vermin .
+    - run: codespell
+    - run: yamllint .
+
+  python:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-26
+          - macos-15-intel
+          - windows-2025
+    steps:
+    - uses: actions/checkout@v7
+    - run: echo SOURCE_DATE_EPOCH="$(git log -1 --pretty=%at)" >> "$GITHUB_ENV"
+      shell: bash
+    - uses: astral-sh/setup-uv@v8.3.2
+      with: {activate-environment: true}
+    - run: uv build
+    - run: tar -tvf dist/mpi_abi_stubs-*.tar.gz
+      shell: bash
+    - run: unzip -v dist/mpi_abi_stubs-*.whl
+      shell: bash
+    - run: uv pip install mpi-abi-stubs --no-index -n -f dist
+    - run: bash check.sh
 
   cmake:
     runs-on: ${{ matrix.os }}
@@ -57,14 +100,18 @@ jobs:
           - macos-15
           - macos-14
           - macos-15-intel
+          - windows-2025
+          - windows-2022
     steps:
     - uses: actions/checkout@v7
     - uses: actions/setup-python@v6
-      with: {python-version: '3.x'}
-    - run:  python -m pip install meson ninja
-    - run:  bash -x build-meson.sh
-    - run:  bash check.sh
-    - run:  bash test-meson.sh
+      with:
+        python-version: 3
+        pip-install: meson ninja
+    - run: bash -x build-meson.sh
+           ${{ case(runner.os == 'Windows', '--vsenv', '') }}
+    - run: bash check.sh
+    - run: bash test-meson.sh
       working-directory: test
       if: ${{ runner.os != 'Windows' }}
 
@@ -86,3 +133,5 @@ jobs:
     - uses: actions/checkout@v7
     - run:  make
     - run:  bash check.sh
+    - run:  make test
+      working-directory: test

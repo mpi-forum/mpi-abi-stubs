@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-: "${PREFIX=$PWD}"
+: "${PREFIX=$(pwd)}"
 set -- --libdir=lib "$@"
 meson setup build --prefix="$PREFIX" --buildtype=release "$@"
 meson compile -C build

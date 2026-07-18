@@ -1,0 +1,8 @@
+# -*- mode: conf -*-
+# https://github.com/netromdk/vermin
+
+[vermin]
+targets = 3.6
+ignore_incomp = yes
+eval_annotations = yes
+parse_comments = no

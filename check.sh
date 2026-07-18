@@ -1,22 +1,33 @@
 #!/bin/bash
 set -euo pipefail
 
-prefix=${PREFIX:-$PWD}
-export PATH=${prefix}/bin:$PATH
+topdir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+: "${PREFIX:="$topdir"}"
+: "${BINDIR:=bin}"
+
+if test -d "${PREFIX}/${BINDIR}"; then
+    export PATH="${PREFIX}/${BINDIR}${PATH:+:${PATH}}"
+fi
+
+abi_major=$(awk '/MPI_ABI_VERSION/{print $NF}' "$(mpicc -show-incdir)/mpi.h")
 
 case "$(uname)" in
     Linux)
         lib="lib"
-        so=".so"
+        mod=".so"
+        dll=".so.$abi_major"
         ;;
     Darwin)
         ldd () { otool -L "$1"; }
         lib="lib"
-        so=".dylib"
+        mod=".dylib"
+        dll=".$abi_major.dylib"
         ;;
     *_NT-*)
+        command -v ldd >/dev/null 2>&1 || ldd() { test -f "$1"; }
         lib=""
-        so=".dll"
+        mod=".lib"
+        dll=".dll"
         ;;
 esac
 
@@ -47,16 +58,25 @@ command -v mpicc
 command -v mpicxx
 echo "$(mpicc -show-incdir)/mpi.h":
 grep -E 'MPI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
-echo "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so":
-ldd "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so"
+grep -E 'MPI_ABI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
+ls  "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$mod"
+echo "$(mpicc -show-rpath)/$lib$(mpicc -show-libs)$dll":
+ldd  "$(mpicc -show-rpath)/$lib$(mpicc -show-libs)$dll"
+
+RPATH="$(mpicc -show-rpath)"
+export LD_LIBRARY_PATH="${RPATH}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+export DYLD_LIBRARY_PATH="${RPATH}${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}"
 
 set -x
 
 mpicc -show
 mpicc -show-incdir
 mpicc -show-libdir
+mpicc -show-bindir
+mpicc -show-rpath
 mpicc -show-libs
 for cc in gcc clang; do
+    command -v "$cc" || continue
     "$cc" -v > cc.log 2>&1
     mpicc -cc="$cc" -v > mpicc.log 2>&1
     diff cc.log mpicc.log
@@ -69,8 +89,11 @@ done
 mpicxx -show
 mpicxx -show-incdir
 mpicxx -show-libdir
+mpicxx -show-bindir
+mpicxx -show-rpath
 mpicxx -show-libs
 for cxx in g++ clang++; do
+    command -v "$cxx" || continue
     "$cxx" -v  > cxx.log 2>&1
     mpicxx -cxx="$cxx" -v  > mpicxx.log 2>&1
     diff cxx.log mpicxx.log

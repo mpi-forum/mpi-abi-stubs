@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# install-dirs
-includedir="@includedir@"
-libdir="@libdir@"
+prefix=@prefix@
+bindir=@bindir@
+incdir=@incdir@
+libdir=@libdir@
+rpath=@rpath@
 
 @CC@=@cc@
 if [[ -n "$MPI_@CC@" ]]; then
@@ -40,6 +42,12 @@ for arg in "$@" ; do
         -show-libdir|-showme:libdir)
             mode="show-libdir"
             ;;
+        -show-bindir|-showme:bindir)
+            mode="show-bindir"
+            ;;
+        -show-rpath|-showme:rpath)
+            mode="show-rpath"
+            ;;
         -show-libs|-showme:libs)
             mode="show-libs"
             ;;
@@ -65,17 +73,19 @@ if [[ "@${arglist[*]}" = "@-v" ]]; then
 fi
 
 if [[ "$mode" = "compile" ]]; then
-    $Exec "${@CC@}" "${arglist[@]}" -I"${includedir}"
+    $Exec "${@CC@}" "${arglist[@]}" -I"${incdir}"
 elif [[ "$mode" = "link" ]]; then
-    $Exec "${@CC@}" "${arglist[@]}" -I"${includedir}" -L"${libdir}" -lmpi_abi
+    $Exec "${@CC@}" "${arglist[@]}" -I"${incdir}" -L"${libdir}" -lmpi_abi
 elif [[ "$mode" = "" ]]; then
     $Exec "${@CC@}" "${arglist[@]}"
 else
     case "$mode" in
-        show-compile) printf -- "-I%s\n" "${includedir}";;
+        show-compile) printf -- "-I%s\n" "${incdir}";;
         show-link)    printf -- "-L%s -l%s\n" "${libdir}" mpi_abi;;
-        show-incdir)  printf -- "%s\n" "${includedir}";;
+        show-incdir)  printf -- "%s\n" "${incdir}";;
         show-libdir)  printf -- "%s\n" "${libdir}";;
+        show-bindir)  printf -- "%s\n" "${bindir}";;
+        show-rpath)   printf -- "%s\n" "${rpath}";;
         show-libs)    printf -- "%s\n" mpi_abi;;
     esac
 fi
