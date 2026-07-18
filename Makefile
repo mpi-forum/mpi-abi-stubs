@@ -17,14 +17,14 @@ BINDIR = bin
 INCDIR = include
 LIBDIR = lib
 ifdef RELOCATABLE
-  d_prefix = $$(CDPATH='\'''\'' cd -- "$$(dirname -- "$$0")"/.. \&\& pwd)
+  prefix = $$(CDPATH='\'''\'' cd -- "$$(dirname -- "$$0")"/.. \&\& pwd)
 else
-  d_prefix = $(abspath $(PREFIX))
+  prefix = "$(abspath $(PREFIX))"
 endif
-d_bindir = $$prefix/$(BINDIR)
-d_incdir = $$prefix/$(INCDIR)
-d_libdir = $$prefix/$(LIBDIR)
-d_rpath  = $(if $(findstring _NT-,$(UNAME_S)),$$bindir,$$libdir)
+bindir = $$prefix/$(BINDIR)
+incdir = $$prefix/$(INCDIR)
+libdir = $$prefix/$(LIBDIR)
+rpath  = $(if $(findstring _NT-,$(UNAME_S)),$$bindir,$$libdir)
 
 BUILD = build
 
@@ -87,11 +87,11 @@ $(BUILD)/mpicxx: override cc := c++
 $(BUILD)/mpicxx: override op := cxx
 $(BUILD)/mpicc $(BUILD)/mpicxx : mpicc.in | $$(@D)/.DIR
 	cp $< $@
-	$(SED_I) -e 's:@prefix@:$(d_prefix):' $@
-	$(SED_I) -e 's:@bindir@:$(d_bindir):' $@
-	$(SED_I) -e 's:@includedir@:$(d_incdir):' $@
-	$(SED_I) -e 's:@libdir@:$(d_libdir):' $@
-	$(SED_I) -e 's:@rpath@:$(d_rpath):' $@
+	$(SED_I) -e 's:@prefix@:$(prefix):' $@
+	$(SED_I) -e 's:@bindir@:$(bindir):' $@
+	$(SED_I) -e 's:@incdir@:$(incdir):' $@
+	$(SED_I) -e 's:@libdir@:$(libdir):' $@
+	$(SED_I) -e 's:@rpath@:$(rpath):' $@
 	$(SED_I) -e 's/@CC@/$(CC)/g' $@
 	$(SED_I) -e 's/@cc@/$(cc)/g' $@
 	$(SED_I) -e 's/@op@/$(op)/g' $@

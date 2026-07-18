@@ -29,26 +29,26 @@ assert(abi_minor >= 0, f'MPI_ABI_SUBVERSION not found in @source_h@')
 
 prefix = get_option('prefix')
 bindir = get_option('bindir')
-includedir = get_option('includedir')
+incdir = get_option('includedir')
 libdir = get_option('libdir')
 if get_option('relocatable')
-  d_prefix = '$(CDPATH=\'\' cd -- "$(dirname -- "$0")"/.. && pwd)'
-  d_bindir = '$prefix' / bindir
-  d_incdir = '$prefix' / includedir
-  d_libdir = '$prefix' / libdir
+  prefix = '$(CDPATH=\'\' cd -- "$(dirname -- "$0")"/.. && pwd)'
+  bindir = '$prefix' / bindir
+  incdir = '$prefix' / incdir
+  libdir = '$prefix' / libdir
 else
-  d_prefix = prefix
-  d_bindir = fs.is_absolute(bindir) ? bindir : '$prefix' / bindir
-  d_incdir = fs.is_absolute(includedir) ? includedir : '$prefix' / includedir
-  d_libdir = fs.is_absolute(libdir) ? libdir : '$prefix' / libdir
+  prefix = f'"@prefix@"'
+  bindir = fs.is_absolute(bindir) ? f'"@bindir@"' : '$prefix' / bindir
+  incdir = fs.is_absolute(incdir) ? f'"@incdir@"' : '$prefix' / incdir
+  libdir = fs.is_absolute(libdir) ? f'"@libdir@"' : '$prefix' / libdir
 endif
-d_rpath = host_machine.system() == 'windows' ? '$bindir' : '$libdir'
+rpath = host_machine.system() == 'windows' ? '$bindir' : '$libdir'
 conf_dirs = {
-  'prefix': d_prefix,
-  'bindir': d_bindir,
-  'includedir': d_incdir,
-  'libdir': d_libdir,
-  'rpath': d_rpath,
+  'prefix': prefix,
+  'bindir': bindir,
+  'incdir': incdir,
+  'libdir': libdir,
+  'rpath': rpath,
 }
 conf_vars = {
   'mpicc': {
@@ -62,13 +62,13 @@ conf_vars = {
     'op': 'cxx',
   },
 }
-foreach prog: ['mpicc', 'mpicxx']
+foreach script: ['mpicc', 'mpicxx']
   configure_file(
     input: 'mpicc.in',
-    configuration: conf_dirs + conf_vars[prog],
-    output: prog,
+    configuration: conf_dirs + conf_vars[script],
+    output: script,
     install: true,
-    install_dir: bindir,
+    install_dir: get_option('bindir'),
     install_mode: 'rwxr-xr-x',
   )
 endforeach
