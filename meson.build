@@ -78,12 +78,13 @@ install_headers(
 )
 
 libname = 'mpi_abi'
-soversion = f'@abi_major@'
+soversion = host_machine.system() == 'windows' ? '' : f'@abi_major@'
 shared_library(
   libname,
   files(source_c),
   soversion: soversion,
   darwin_versions: [0, 0],
+  vs_module_defs: 'mpilib.def',
   install: true,
 )
 

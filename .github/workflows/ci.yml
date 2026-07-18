@@ -100,14 +100,18 @@ jobs:
           - macos-15
           - macos-14
           - macos-15-intel
+          - windows-2025
+          - windows-2022
     steps:
     - uses: actions/checkout@v7
     - uses: actions/setup-python@v6
-      with: {python-version: '3.x'}
-    - run:  python -m pip install meson ninja
-    - run:  bash -x build-meson.sh
-    - run:  bash check.sh
-    - run:  bash test-meson.sh
+      with:
+        python-version: 3
+        pip-install: meson ninja
+    - run: bash -x build-meson.sh
+           ${{ case(runner.os == 'Windows', '--vsenv', '') }}
+    - run: bash check.sh
+    - run: bash test-meson.sh
       working-directory: test
       if: ${{ runner.os != 'Windows' }}
 
