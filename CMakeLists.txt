@@ -17,8 +17,19 @@ get_version(${SOURCE_H} MPI_ABI_VERSION    ABI_MAJOR)
 get_version(${SOURCE_H} MPI_ABI_SUBVERSION ABI_MINOR)
 
 include(GNUInstallDirs)
-set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
-set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
+option(RELOCATABLE "Relocatable install" FALSE)
+if(RELOCATABLE)
+  set(prefix "$(CDPATH='' cd -- \"$(dirname -- \"$0\")\"/.. && pwd)")
+  set(bindir $prefix/${CMAKE_INSTALL_BINDIR})
+  set(includedir $prefix/${CMAKE_INSTALL_INCLUDEDIR})
+  set(libdir $prefix/${CMAKE_INSTALL_LIBDIR})
+else()
+  set(prefix ${CMAKE_INSTALL_PREFIX})
+  set(bindir ${CMAKE_INSTALL_FULL_BINDIR})
+  set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
+  set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
+endif()
+
 set(permissions
   OWNER_READ OWNER_WRITE OWNER_EXECUTE
   GROUP_READ GROUP_EXECUTE

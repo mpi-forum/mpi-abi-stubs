@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # install-dirs
+prefix="@prefix@"
 includedir="@includedir@"
 libdir="@libdir@"
 

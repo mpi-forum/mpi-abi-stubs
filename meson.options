@@ -6,3 +6,7 @@ option(
   'source_c', type: 'string', value: 'mpilib.c',
   description: 'MPI ABI implementation source'
 )
+option(
+  'relocatable', type: 'boolean', value: false,
+  description: 'Relocatable install'
+)

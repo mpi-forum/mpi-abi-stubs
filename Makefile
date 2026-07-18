@@ -5,17 +5,25 @@ default: install
 SOURCE_H = mpi.h
 SOURCE_C = mpilib.c
 
-PREFIX = .
-BINDIR = bin
-INCDIR = include
-LIBDIR = lib
-
-BUILD = build
-
 ABI_MAJOR := $(shell awk '/MPI_ABI_VERSION/{print $$NF}' ${SOURCE_H})
 ABI_MINOR := $(shell awk '/MPI_ABI_SUBVERSION/{print $$NF}' ${SOURCE_H})
 $(if $(ABI_MAJOR),,$(error MPI_ABI_VERSION not found in $(SOURCE_H)))
 $(if $(ABI_MINOR),,$(error MPI_ABI_SUBVERSION not found in $(SOURCE_H)))
+
+PREFIX = .
+BINDIR = bin
+INCDIR = include
+LIBDIR = lib
+ifdef RELOCATABLE
+  d_prefix = $$(CDPATH='\'''\'' cd -- "$$(dirname -- "$$0")"/.. \&\& pwd)
+else
+  d_prefix = $(abspath $(PREFIX))
+endif
+d_bindir = $$prefix/$(BINDIR)
+d_incdir = $$prefix/$(INCDIR)
+d_libdir = $$prefix/$(LIBDIR)
+
+BUILD = build
 
 LN = ln -f
 LN_S = $(LN) -s
@@ -77,8 +85,10 @@ $(BUILD)/mpicxx: override cc := c++
 $(BUILD)/mpicxx: override op := cxx
 $(BUILD)/mpicc $(BUILD)/mpicxx : mpicc.in | $$(@D)/.DIR
 	cp $< $@
-	$(SED_I) -e 's:@includedir@:$(abspath $(PREFIX))/$(INCDIR):' $@
-	$(SED_I) -e 's:@libdir@:$(abspath $(PREFIX))/$(LIBDIR):' $@
+	$(SED_I) -e 's:@prefix@:$(d_prefix):' $@
+	$(SED_I) -e 's:@bindir@:$(d_bindir):' $@
+	$(SED_I) -e 's:@includedir@:$(d_incdir):' $@
+	$(SED_I) -e 's:@libdir@:$(d_libdir):' $@
 	$(SED_I) -e 's/@CC@/$(CC)/g' $@
 	$(SED_I) -e 's/@cc@/$(cc)/g' $@
 	$(SED_I) -e 's/@op@/$(op)/g' $@

@@ -10,10 +10,6 @@ source_h = get_option('source_h')
 source_c = get_option('source_c')
 
 fs = import('fs')
-prefix = get_option('prefix')
-bindir = get_option('bindir')
-includedir = get_option('includedir')
-libdir = get_option('libdir')
 
 abi_major = -1
 abi_minor = -1
@@ -31,15 +27,28 @@ endforeach
 assert(abi_major >= 1, f'MPI_ABI_VERSION not found in @source_h@')
 assert(abi_minor >= 0, f'MPI_ABI_SUBVERSION not found in @source_h@')
 
-prog_dirs = {
-  'includedir':
-    fs.is_absolute(includedir) ?
-    includedir : prefix / includedir,
-  'libdir':
-    fs.is_absolute(libdir) ?
-    libdir : prefix / libdir,
+prefix = get_option('prefix')
+bindir = get_option('bindir')
+includedir = get_option('includedir')
+libdir = get_option('libdir')
+if get_option('relocatable')
+  d_prefix = '$(CDPATH=\'\' cd -- "$(dirname -- "$0")"/.. && pwd)'
+  d_bindir = '$prefix' / bindir
+  d_incdir = '$prefix' / includedir
+  d_libdir = '$prefix' / libdir
+else
+  d_prefix = prefix
+  d_bindir = fs.is_absolute(bindir) ? bindir : '$prefix' / bindir
+  d_incdir = fs.is_absolute(includedir) ? includedir : '$prefix' / includedir
+  d_libdir = fs.is_absolute(libdir) ? libdir : '$prefix' / libdir
+endif
+conf_dirs = {
+  'prefix': d_prefix,
+  'bindir': d_bindir,
+  'includedir': d_incdir,
+  'libdir': d_libdir,
 }
-prog_vars = {
+conf_vars = {
   'mpicc': {
     'CC': 'CC',
     'cc': 'cc',
@@ -54,7 +63,7 @@ prog_vars = {
 foreach prog: ['mpicc', 'mpicxx']
   configure_file(
     input: 'mpicc.in',
-    configuration: prog_dirs + prog_vars[prog],
+    configuration: conf_dirs + conf_vars[prog],
     output: prog,
     install: true,
     install_dir: bindir,
