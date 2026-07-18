@@ -86,3 +86,5 @@ jobs:
     - uses: actions/checkout@v7
     - run:  make
     - run:  bash check.sh
+    - run:  make test
+      working-directory: test
