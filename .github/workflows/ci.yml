@@ -18,6 +18,24 @@ permissions:
 
 jobs:
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-python@v6
+      with:
+        python-version: 3
+        pip-install: >-
+          ruff ty
+          shellcheck-py
+          codespell
+    - run: python update.py
+    - run: git diff --exit-code
+    - run: ruff check
+    - run: ruff format --diff
+    - run: ty check
+    - run: shellcheck *.sh test/*.sh
+    - run: codespell -L indx .
 
   cmake:
     runs-on: ${{ matrix.os }}
