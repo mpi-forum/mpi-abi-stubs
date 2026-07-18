@@ -42,11 +42,13 @@ else
   d_incdir = fs.is_absolute(includedir) ? includedir : '$prefix' / includedir
   d_libdir = fs.is_absolute(libdir) ? libdir : '$prefix' / libdir
 endif
+d_rpath = host_machine.system() == 'windows' ? '$bindir' : '$libdir'
 conf_dirs = {
   'prefix': d_prefix,
   'bindir': d_bindir,
   'includedir': d_incdir,
   'libdir': d_libdir,
+  'rpath': d_rpath,
 }
 conf_vars = {
   'mpicc': {

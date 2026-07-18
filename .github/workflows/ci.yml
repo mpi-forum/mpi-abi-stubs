@@ -61,7 +61,6 @@ jobs:
       shell: bash
     - run: uv pip install mpi-abi-stubs --no-index -n -f dist
     - run: bash check.sh
-      if: ${{ runner.os != 'Windows' }}
 
   cmake:
     runs-on: ${{ matrix.os }}

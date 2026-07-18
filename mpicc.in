@@ -2,8 +2,10 @@
 
 # install-dirs
 prefix="@prefix@"
+bindir="@bindir@"
 includedir="@includedir@"
 libdir="@libdir@"
+rpath="@rpath@"
 
 @CC@=@cc@
 if [[ -n "$MPI_@CC@" ]]; then
@@ -41,6 +43,12 @@ for arg in "$@" ; do
         -show-libdir|-showme:libdir)
             mode="show-libdir"
             ;;
+        -show-bindir|-showme:bindir)
+            mode="show-bindir"
+            ;;
+        -show-rpath|-showme:rpath)
+            mode="show-rpath"
+            ;;
         -show-libs|-showme:libs)
             mode="show-libs"
             ;;
@@ -77,6 +85,8 @@ else
         show-link)    printf -- "-L%s -l%s\n" "${libdir}" mpi_abi;;
         show-incdir)  printf -- "%s\n" "${includedir}";;
         show-libdir)  printf -- "%s\n" "${libdir}";;
+        show-bindir)  printf -- "%s\n" "${bindir}";;
+        show-rpath)   printf -- "%s\n" "${rpath}";;
         show-libs)    printf -- "%s\n" mpi_abi;;
     esac
 fi
