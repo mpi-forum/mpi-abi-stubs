@@ -3,7 +3,7 @@
 default: install
 
 SOURCE_H = mpi.h
-SOURCE_C = mpistubs.c
+SOURCE_C = mpilib.c
 
 PREFIX = .
 BINDIR = bin
