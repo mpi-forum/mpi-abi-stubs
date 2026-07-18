@@ -1,0 +1,25 @@
+# https://github.com/adrienverge/yamllint
+
+ignore: |
+  /.git/
+  /.tox/
+  /.venv/
+  /.*_cache/
+
+extends: default
+
+rules:
+
+  document-start:
+    present: false
+
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: -1
+
+  line-length:
+    level: warning
+    max: 79
+
+  indentation:
+    indent-sequences: whatever

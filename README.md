@@ -120,6 +120,7 @@ mpi-abi-stubs/
 ├── Makefile        # GNU Make build system
 ├── CMakeLists.txt  # CMake build system
 ├── meson.build     # Meson build system
+├── pyproject.toml  # Python packaging configuration
 ├── update.py       # Script to update header and stubs
 └── test/           # Tests for build system support
 ```

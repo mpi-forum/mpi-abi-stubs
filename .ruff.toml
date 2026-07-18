@@ -1,0 +1,8 @@
+# https://docs.astral.sh/ruff/
+
+target-version = "py37"
+format.preview = true
+line-length = 79
+lint.select = ["ALL"]
+lint.ignore = ["COM812", "PTH"]
+lint.pydocstyle.convention = "pep257"

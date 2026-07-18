@@ -92,3 +92,21 @@ if(WIN32 AND CMAKE_VERSION VERSION_LESS 3.27.0)
     )
   endif()
 endif()
+
+if(WIN32 AND SKBUILD)
+  set(template ${CMAKE_BINARY_DIR}/wrapper.in)
+  file(WRITE ${template} [[
+#!/bin/sh
+envdir=$(CDPATH='' cd -- "$(dirname -- "$0")"/.. && pwd)
+exec "$envdir/Library/bin/@script@" "$@"
+]])
+  foreach(script mpicc mpicxx)
+    set(wrapper ${CMAKE_BINARY_DIR}/${script}-wrapper)
+    configure_file(${template} ${wrapper} @ONLY)
+    install(
+      FILES ${wrapper} RENAME ${script}
+      PERMISSIONS ${permissions}
+      DESTINATION ${SKBUILD_SCRIPTS_DIR}
+    )
+  endforeach()
+endif()
