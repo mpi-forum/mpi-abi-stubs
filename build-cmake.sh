@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-: "${PREFIX=$PWD}"
+: "${PREFIX=$(pwd)}"
 set -- -DCMAKE_BUILD_TYPE=Release "$@"
 set -- -DCMAKE_INSTALL_LIBDIR=lib "$@"
 cmake -B build --install-prefix="$PREFIX" "$@"

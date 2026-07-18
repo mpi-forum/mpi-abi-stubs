@@ -1,8 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-prefix=${PREFIX:-$PWD}
-export PATH=${prefix}/bin:$PATH
+topdir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+: "${PREFIX:="$topdir"}"
+: "${BINDIR:=bin}"
+
+if test -d "${PREFIX}/${BINDIR}"; then
+    export PATH=${PREFIX}/${BINDIR}:$PATH
+fi
 
 case "$(uname)" in
     Linux)
@@ -47,6 +52,7 @@ command -v mpicc
 command -v mpicxx
 echo "$(mpicc -show-incdir)/mpi.h":
 grep -E 'MPI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
+grep -E 'MPI_ABI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
 echo "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so":
 ldd "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$so"
 
