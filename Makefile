@@ -59,12 +59,14 @@ ifndef CFLAGS
   ifdef cc_is_gnu
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Wall -Wextra -Werror
+    CFLAGS += -Wno-long-long
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
   endif
   ifdef cc_is_llvm
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Weverything -Werror
+    CFLAGS += -Wno-long-long
     CFLAGS += -Wno-poison-system-directories
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
