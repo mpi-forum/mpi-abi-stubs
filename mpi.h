@@ -265,7 +265,7 @@ enum {
     MPI_T_ERR_PVAR_NO_STARTSTOP        = 1017,
     MPI_T_ERR_PVAR_NO_ATOMIC           = 1018,
 
-    MPI_ERR_LASTCODE                   = 0x3fff /* half of the minimum required value of INT_MAX */
+    MPI_ERR_LASTCODE                   = 16383,
 };
 
 /* Buffer Address Constants */
