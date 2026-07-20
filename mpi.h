@@ -1,7 +1,24 @@
 #ifndef MPI_H_ABI
 #define MPI_H_ABI
 
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || \
+    (defined(__cplusplus) && __cplusplus >= 201103L) || \
+    (defined(__GNUC__) || defined(__clang__)) || \
+    (defined(_MSC_VER) && _MSC_VER >= 1600)
 #include <stdint.h>
+#define MPI_ABI_Aint   intptr_t
+#define MPI_ABI_Offset int64_t
+#elif defined(_MSC_VER) && defined(_WIN64)
+#define MPI_ABI_Aint   __int64
+#define MPI_ABI_Offset __int64
+#elif defined(_MSC_VER) && defined(_WIN32)
+#define MPI_ABI_Aint   long
+#define MPI_ABI_Offset __int64
+#else
+#define MPI_ABI_Aint   long
+#define MPI_ABI_Offset long long
+#endif
+#define MPI_ABI_Count  MPI_ABI_Offset
 
 #if defined(__cplusplus)
 extern "C" {
@@ -13,28 +30,11 @@ extern "C" {
 #define MPI_ABI_VERSION    1
 #define MPI_ABI_SUBVERSION 0
 
-/* MPI_Aint is defined to be intptr_t (or equivalent to it, if compiler support is absent).
- * The only acceptable alternative to intptr_t is the C89 type equivalent to it. */
-#if !defined(MPI_ABI_Aint)
-#define MPI_ABI_Aint intptr_t
-#endif
-typedef MPI_ABI_Aint MPI_Aint;
-#undef  MPI_ABI_Aint
-
-/* MPI_Offset will be 64b on all relevant systems.
- * We allow for MPI implementations supporting for 128b filesystems. */
-#if !defined(MPI_ABI_Offset)
-#define MPI_ABI_Offset int64_t
-#endif
+typedef MPI_ABI_Aint   MPI_Aint;
 typedef MPI_ABI_Offset MPI_Offset;
+typedef MPI_ABI_Count  MPI_Count;
+#undef  MPI_ABI_Aint
 #undef  MPI_ABI_Offset
-
-/* MPI_Count must be large enough to hold the larger of MPI_Aint and MPI_Offset.
- * Platforms where MPI_Aint is larger than MPI_Offset are extremely rare. */
-#if !defined(MPI_ABI_Count)
-#define MPI_ABI_Count MPI_Offset
-#endif
-typedef MPI_ABI_Count MPI_Count;
 #undef  MPI_ABI_Count
 
 typedef struct {

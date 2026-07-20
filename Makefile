@@ -52,23 +52,28 @@ LIBFILE = $(call libfilename,$(LIBNAME),$(SOVERSION))
 LIBLINK = $(subst .$(SOVERSION),,$(LIBFILE))
 
 ifndef CFLAGS
-  cc_std = c89
+  is_cxx = $(filter %++,$(CC))
+  cc_std = $(if $(is_cxx),c++98,c89)
   cc_version := $(shell $(CC) --version)
   cc_is_gnu  := $(if $(findstring Free Software Foundation,$(cc_version)),1)
   cc_is_llvm := $(if $(findstring clang,$(cc_version)),1)
   ifdef cc_is_gnu
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Wall -Wextra -Werror
+    CFLAGS += -Wno-long-long
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
   endif
   ifdef cc_is_llvm
     CFLAGS  = $(if $(cc_std),-std=$(cc_std))
     CFLAGS += -pedantic -Weverything -Werror
+    CFLAGS += -Wno-long-long
     CFLAGS += -Wno-poison-system-directories
     CFLAGS += -Wno-unused-parameter
     CFLAGS += -Wno-unreachable-code-return
     CFLAGS += -Wno-unsafe-buffer-usage
+    CFLAGS += $(if $(is_cxx),-Wno-deprecated)
+    CFLAGS += $(if $(is_cxx),-Wno-old-style-cast)
   endif
 endif
 cc-check = $(CC) $1 -S -o /dev/null -x c /dev/null > /dev/null 2>&1
