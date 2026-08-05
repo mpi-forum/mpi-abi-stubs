@@ -49,29 +49,28 @@ else()
   set(rpath $libdir)
 endif()
 
+set(mpicc.CC CC)
+set(mpicc.cc cc)
+set(mpicc.op cc)
+set(mpicxx.CC CXX)
+set(mpicxx.cc c++)
+set(mpicxx.op cxx)
 set(permissions
   OWNER_READ OWNER_WRITE OWNER_EXECUTE
   GROUP_READ GROUP_EXECUTE
   WORLD_READ WORLD_EXECUTE
 )
-set(CC CC)
-set(cc cc)
-set(op cc)
-configure_file(mpicc.in mpicc @ONLY)
-install(
-  FILES ${CMAKE_BINARY_DIR}/mpicc
-  PERMISSIONS ${permissions}
-  DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-set(CC CXX)
-set(cc c++)
-set(op cxx)
-configure_file(mpicc.in mpicxx @ONLY)
-install(
-  FILES ${CMAKE_BINARY_DIR}/mpicxx
-  PERMISSIONS ${permissions}
-  DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+foreach(script mpicc mpicxx)
+  set(CC ${${script}.CC})
+  set(cc ${${script}.cc})
+  set(op ${${script}.op})
+  configure_file(mpicc.in ${script} @ONLY)
+  install(
+    FILES ${CMAKE_BINARY_DIR}/${script}
+    PERMISSIONS ${permissions}
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
+endforeach()
 
 install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
