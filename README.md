@@ -116,7 +116,7 @@ mpi-abi-stubs/
 ├── mpi.h           # MPI ABI header file
 ├── mpilib.c        # Library stubs implementation
 ├── mpilib.def      # Visual Studio module-definition
-├── mpicc.in        # Template for mpicc/mpicxx wrappers
+├── mpicc.in        # Template for compiler wrappers
 ├── Makefile        # GNU Make build system
 ├── CMakeLists.txt  # CMake build system
 ├── meson.build     # Meson build system

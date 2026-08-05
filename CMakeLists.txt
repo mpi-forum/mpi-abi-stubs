@@ -70,6 +70,28 @@ foreach(script mpicc mpicxx)
     PERMISSIONS ${permissions}
     DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.14.0)
+    file(CREATE_LINK
+      ${script} ${CMAKE_BINARY_DIR}/${script}_abi
+      SYMBOLIC COPY_ON_ERROR
+    )
+  else()
+    set(create_symlink create_symlink)
+    if(WIN32 AND CMAKE_VERSION VERSION_LESS 3.13.0)
+      set(create_symlink copy)
+    endif()
+    add_custom_target(${script}_abi ALL VERBATIM
+      DEPENDS ${CMAKE_BINARY_DIR}/${script}
+      BYPRODUCTS ${CMAKE_BINARY_DIR}/${script}_abi
+      COMMAND ${CMAKE_COMMAND} -E ${create_symlink}
+      ${script} ${CMAKE_BINARY_DIR}/${script}_abi
+    )
+  endif()
+  install(
+    FILES ${CMAKE_BINARY_DIR}/${script}_abi
+    PERMISSIONS ${permissions}
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
 endforeach()
 
 install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
@@ -121,7 +143,7 @@ if(WIN32 AND SKBUILD)
 venvdir=$(CDPATH='' cd -- "$(dirname -- "$0")"/.. && pwd)
 exec "$venvdir/Library/bin/@script@" "$@"
 ]])
-  foreach(script mpicc mpicxx)
+  foreach(script mpicc mpicxx mpicc_abi mpicxx_abi)
     set(wrapper ${CMAKE_BINARY_DIR}/${script}-wrapper)
     configure_file(${template} ${wrapper} @ONLY)
     install(
