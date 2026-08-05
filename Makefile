@@ -123,6 +123,7 @@ DESTLIBDIR = $(DESTDIR)$(PREFIX)/$(LIBDIR)
 install: install-scripts install-headers install-library
 install-scripts: $(foreach f,$(SCRIPTS),$(BUILD)/$(f)) | $(DESTBINDIR)/.
 	install -c -m 755 $^ $(DESTBINDIR)
+	cd $(DESTBINDIR) && $(foreach f,$(^F),$(LN_S) $(f) $(f)_abi &&) true;
 install-headers: $(SOURCE_H) | $(DESTINCDIR)/.
 	install -c -m 644 $^ $(DESTINCDIR)
 install-library: $(BUILD)/$(LIBFILE) | $(DESTLIBDIR)/.
@@ -132,9 +133,10 @@ install-library: $(BUILD)/$(LIBFILE) | $(DESTLIBDIR)/.
 .PHONY: uninstall uninstall-scripts uninstall-headers uninstall-library
 uninstall: uninstall-scripts uninstall-headers uninstall-library
 uninstall-scripts:
-	-$(RM) -r $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f))
+	-$(RM) $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f))
+	-$(RM) $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f)_abi)
 uninstall-headers:
-	-$(RM) -r $(foreach f,$(SOURCE_H),$(DESTINCDIR)/$(f))
+	-$(RM) $(foreach f,$(SOURCE_H),$(DESTINCDIR)/$(f))
 uninstall-library:
 	-$(RM) $(DESTLIBDIR)/$(LIBFILE)
 	-$(RM) $(DESTLIBDIR)/$(LIBLINK)

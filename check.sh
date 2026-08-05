@@ -56,6 +56,9 @@ ln -s helloworld.c helloworld.cxx
 
 command -v mpicc
 command -v mpicxx
+command -v mpicc_abi
+command -v mpicxx_abi
+
 echo "$(mpicc -show-incdir)/mpi.h":
 grep -E 'MPI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
 grep -E 'MPI_ABI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"

@@ -71,6 +71,11 @@ foreach script: ['mpicc', 'mpicxx']
     install_dir: get_option('bindir'),
     install_mode: 'rwxr-xr-x',
   )
+  install_symlink(
+    script + '_abi',
+    pointing_to: script,
+    install_dir: get_option('bindir'),
+  )
 endforeach
 
 install_headers(
