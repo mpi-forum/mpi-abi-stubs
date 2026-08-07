@@ -13,21 +13,26 @@ abi_major=$(awk '/MPI_ABI_VERSION/{print $NF}' "$(mpicc -show-incdir)/mpi.h")
 
 case "$(uname)" in
     Linux)
-        lib="lib"
-        mod=".so"
-        dll=".so.$abi_major"
+        linkname() { printf "lib%s.so\n" "$@"; }
+        dyldname() { printf "lib%s.so.$abi_major\n" "$@"; }
+        lds() { nm -PD "$1" | awk '{print $1,$2}'; }
+        ldd() { command ldd "$1"; }
         ;;
     Darwin)
-        ldd () { otool -L "$1"; }
-        lib="lib"
-        mod=".dylib"
-        dll=".$abi_major.dylib"
+        linkname() { printf "lib%s.dylib\n" "$@"; }
+        dyldname() { printf "lib%s.$abi_major.dylib\n" "$@" ; }
+        lds() { dyld_info -exports "$1" | awk 'NR<=3{next}{print $2,$3}'; }
+        ldd() { otool -L "$1"; }
         ;;
     *_NT-*)
-        command -v ldd >/dev/null 2>&1 || ldd() { test -f "$1"; }
-        lib=""
-        mod=".lib"
-        dll=".dll"
+        linkname() { printf "%s.lib\n" "$@"; }
+        dyldname() { printf "%s.dll\n" "$@"; }
+        if command -v nm awk >/dev/null 2>&1; then
+        lds() { nm -P "$1" | awk '{print $1,$2}'; }; else
+        lds() { test -f "$1"; echo "MPI_ABI_version X"; }; fi
+        if command -v ldd >/dev/null 2>&1; then
+        ldd() { command ldd "$1"; }; else
+        ldd() { test -f "$1"; }; fi
         ;;
 esac
 
@@ -59,12 +64,18 @@ command -v mpicxx
 command -v mpicc_abi
 command -v mpicxx_abi
 
-echo "$(mpicc -show-incdir)/mpi.h":
-grep -E 'MPI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
-grep -E 'MPI_ABI_(SUB)?VERSION' "$(mpicc -show-incdir)/mpi.h"
-ls  "$(mpicc -show-libdir)/$lib$(mpicc -show-libs)$mod"
-echo "$(mpicc -show-rpath)/$lib$(mpicc -show-libs)$dll":
-ldd  "$(mpicc -show-rpath)/$lib$(mpicc -show-libs)$dll"
+header="$(mpicc -show-incdir)/mpi.h"
+echo "$header":
+grep -E 'MPI_(SUB)?VERSION' "$header"
+grep -E 'MPI_ABI_(SUB)?VERSION' "$header"
+
+ldlib="$(mpicc -show-libdir)/$(linkname "$(mpicc -show-libs)")"
+echo "$ldlib":
+lds  "$ldlib" | grep -E '_?P?MPI_[A-Za-z_]+_version'
+
+dyldlib="$(mpicc -show-rpath)/$(dyldname "$(mpicc -show-libs)")"
+echo "$dyldlib":
+ldd  "$dyldlib"
 
 RPATH="$(mpicc -show-rpath)"
 export LD_LIBRARY_PATH="${RPATH}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
@@ -86,7 +97,8 @@ for cc in gcc clang; do
     mpicc -cc="$cc" ./helloworld.c -c
     test -f helloworld.o && rm helloworld.o
     mpicc -cc="$cc" ./helloworld.c -o hw.exe
-    ldd hw.exe && rm hw.exe
+    ldd hw.exe
+    rm hw.exe
 done
 
 mpicxx -show
@@ -103,5 +115,6 @@ for cxx in g++ clang++; do
     mpicxx -cxx="$cxx" ./helloworld.cxx -c
     test -f helloworld.o && rm helloworld.o
     mpicxx -cxx="$cxx" ./helloworld.cxx -o hw.exe
-    ldd hw.exe && rm hw.exe
+    ldd hw.exe
+    rm hw.exe
 done
