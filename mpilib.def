@@ -12,6 +12,8 @@ EXPORTS
     MPI_Add_error_class
     MPI_Add_error_code
     MPI_Add_error_string
+    MPI_Aint_add
+    MPI_Aint_diff
     MPI_Allgather
     MPI_Allgather_c
     MPI_Allgather_init
@@ -86,6 +88,7 @@ EXPORTS
     MPI_Comm_flush_buffer
     MPI_Comm_free
     MPI_Comm_free_keyval
+    MPI_Comm_fromint
     MPI_Comm_get_attr
     MPI_Comm_get_errhandler
     MPI_Comm_get_info
@@ -109,6 +112,7 @@ EXPORTS
     MPI_Comm_split
     MPI_Comm_split_type
     MPI_Comm_test_inter
+    MPI_Comm_toint
     MPI_Compare_and_swap
     MPI_Dims_create
     MPI_Dist_graph_create
@@ -116,6 +120,8 @@ EXPORTS
     MPI_Dist_graph_neighbors
     MPI_Dist_graph_neighbors_count
     MPI_Errhandler_free
+    MPI_Errhandler_fromint
+    MPI_Errhandler_toint
     MPI_Error_class
     MPI_Error_string
     MPI_Exscan
@@ -127,6 +133,7 @@ EXPORTS
     MPI_File_close
     MPI_File_create_errhandler
     MPI_File_delete
+    MPI_File_fromint
     MPI_File_get_amode
     MPI_File_get_atomicity
     MPI_File_get_byte_offset
@@ -140,45 +147,45 @@ EXPORTS
     MPI_File_get_type_extent_c
     MPI_File_get_view
     MPI_File_iread
-    MPI_File_iread_c
     MPI_File_iread_all
     MPI_File_iread_all_c
     MPI_File_iread_at
-    MPI_File_iread_at_c
     MPI_File_iread_at_all
     MPI_File_iread_at_all_c
+    MPI_File_iread_at_c
+    MPI_File_iread_c
     MPI_File_iread_shared
     MPI_File_iread_shared_c
     MPI_File_iwrite
-    MPI_File_iwrite_c
     MPI_File_iwrite_all
     MPI_File_iwrite_all_c
     MPI_File_iwrite_at
-    MPI_File_iwrite_at_c
     MPI_File_iwrite_at_all
     MPI_File_iwrite_at_all_c
+    MPI_File_iwrite_at_c
+    MPI_File_iwrite_c
     MPI_File_iwrite_shared
     MPI_File_iwrite_shared_c
     MPI_File_open
     MPI_File_preallocate
     MPI_File_read
-    MPI_File_read_c
     MPI_File_read_all
-    MPI_File_read_all_c
     MPI_File_read_all_begin
     MPI_File_read_all_begin_c
+    MPI_File_read_all_c
     MPI_File_read_all_end
     MPI_File_read_at
-    MPI_File_read_at_c
     MPI_File_read_at_all
-    MPI_File_read_at_all_c
     MPI_File_read_at_all_begin
     MPI_File_read_at_all_begin_c
+    MPI_File_read_at_all_c
     MPI_File_read_at_all_end
+    MPI_File_read_at_c
+    MPI_File_read_c
     MPI_File_read_ordered
-    MPI_File_read_ordered_c
     MPI_File_read_ordered_begin
     MPI_File_read_ordered_begin_c
+    MPI_File_read_ordered_c
     MPI_File_read_ordered_end
     MPI_File_read_shared
     MPI_File_read_shared_c
@@ -190,24 +197,25 @@ EXPORTS
     MPI_File_set_size
     MPI_File_set_view
     MPI_File_sync
+    MPI_File_toint
     MPI_File_write
-    MPI_File_write_c
     MPI_File_write_all
-    MPI_File_write_all_c
     MPI_File_write_all_begin
     MPI_File_write_all_begin_c
+    MPI_File_write_all_c
     MPI_File_write_all_end
     MPI_File_write_at
-    MPI_File_write_at_c
     MPI_File_write_at_all
-    MPI_File_write_at_all_c
     MPI_File_write_at_all_begin
     MPI_File_write_at_all_begin_c
+    MPI_File_write_at_all_c
     MPI_File_write_at_all_end
+    MPI_File_write_at_c
+    MPI_File_write_c
     MPI_File_write_ordered
-    MPI_File_write_ordered_c
     MPI_File_write_ordered_begin
     MPI_File_write_ordered_begin_c
+    MPI_File_write_ordered_c
     MPI_File_write_ordered_end
     MPI_File_write_shared
     MPI_File_write_shared_c
@@ -223,10 +231,10 @@ EXPORTS
     MPI_Gatherv_init
     MPI_Gatherv_init_c
     MPI_Get
-    MPI_Get_c
     MPI_Get_accumulate
     MPI_Get_accumulate_c
     MPI_Get_address
+    MPI_Get_c
     MPI_Get_count
     MPI_Get_count_c
     MPI_Get_elements
@@ -249,12 +257,14 @@ EXPORTS
     MPI_Group_excl
     MPI_Group_free
     MPI_Group_from_session_pset
+    MPI_Group_fromint
     MPI_Group_incl
     MPI_Group_intersection
     MPI_Group_range_excl
     MPI_Group_range_incl
     MPI_Group_rank
     MPI_Group_size
+    MPI_Group_toint
     MPI_Group_translate_ranks
     MPI_Group_union
     MPI_Iallgather
@@ -298,12 +308,14 @@ EXPORTS
     MPI_Info_delete
     MPI_Info_dup
     MPI_Info_free
+    MPI_Info_fromint
     MPI_Info_get
     MPI_Info_get_nkeys
     MPI_Info_get_nthkey
     MPI_Info_get_string
     MPI_Info_get_valuelen
     MPI_Info_set
+    MPI_Info_toint
     MPI_Init
     MPI_Init_thread
     MPI_Initialized
@@ -316,9 +328,9 @@ EXPORTS
     MPI_Ireduce
     MPI_Ireduce_c
     MPI_Ireduce_scatter
-    MPI_Ireduce_scatter_c
     MPI_Ireduce_scatter_block
     MPI_Ireduce_scatter_block_c
+    MPI_Ireduce_scatter_c
     MPI_Irsend
     MPI_Irsend_c
     MPI_Is_thread_main
@@ -339,6 +351,8 @@ EXPORTS
     MPI_Keyval_create
     MPI_Keyval_free
     MPI_Lookup_name
+    MPI_Message_fromint
+    MPI_Message_toint
     MPI_Mprobe
     MPI_Mrecv
     MPI_Mrecv_c
@@ -366,6 +380,8 @@ EXPORTS
     MPI_Op_create
     MPI_Op_create_c
     MPI_Op_free
+    MPI_Op_fromint
+    MPI_Op_toint
     MPI_Open_port
     MPI_Pack
     MPI_Pack_c
@@ -402,11 +418,11 @@ EXPORTS
     MPI_Reduce_local
     MPI_Reduce_local_c
     MPI_Reduce_scatter
-    MPI_Reduce_scatter_c
     MPI_Reduce_scatter_block
     MPI_Reduce_scatter_block_c
     MPI_Reduce_scatter_block_init
     MPI_Reduce_scatter_block_init_c
+    MPI_Reduce_scatter_c
     MPI_Reduce_scatter_init
     MPI_Reduce_scatter_init_c
     MPI_Register_datarep
@@ -415,14 +431,16 @@ EXPORTS
     MPI_Remove_error_code
     MPI_Remove_error_string
     MPI_Request_free
+    MPI_Request_fromint
     MPI_Request_get_status
     MPI_Request_get_status_all
     MPI_Request_get_status_any
     MPI_Request_get_status_some
+    MPI_Request_toint
     MPI_Rget
-    MPI_Rget_c
     MPI_Rget_accumulate
     MPI_Rget_accumulate_c
+    MPI_Rget_c
     MPI_Rput
     MPI_Rput_c
     MPI_Rsend
@@ -457,6 +475,7 @@ EXPORTS
     MPI_Session_detach_buffer_c
     MPI_Session_finalize
     MPI_Session_flush_buffer
+    MPI_Session_fromint
     MPI_Session_get_errhandler
     MPI_Session_get_info
     MPI_Session_get_nth_pset
@@ -465,6 +484,7 @@ EXPORTS
     MPI_Session_iflush_buffer
     MPI_Session_init
     MPI_Session_set_errhandler
+    MPI_Session_toint
     MPI_Ssend
     MPI_Ssend_c
     MPI_Ssend_init
@@ -481,138 +501,6 @@ EXPORTS
     MPI_Status_set_error
     MPI_Status_set_source
     MPI_Status_set_tag
-    MPI_Test
-    MPI_Test_cancelled
-    MPI_Testall
-    MPI_Testany
-    MPI_Testsome
-    MPI_Topo_test
-    MPI_Type_commit
-    MPI_Type_contiguous
-    MPI_Type_contiguous_c
-    MPI_Type_create_darray
-    MPI_Type_create_darray_c
-    MPI_Type_create_f90_complex
-    MPI_Type_create_f90_integer
-    MPI_Type_create_f90_real
-    MPI_Type_create_hindexed
-    MPI_Type_create_hindexed_c
-    MPI_Type_create_hindexed_block
-    MPI_Type_create_hindexed_block_c
-    MPI_Type_create_hvector
-    MPI_Type_create_hvector_c
-    MPI_Type_create_indexed_block
-    MPI_Type_create_indexed_block_c
-    MPI_Type_create_keyval
-    MPI_Type_create_resized
-    MPI_Type_create_resized_c
-    MPI_Type_create_struct
-    MPI_Type_create_struct_c
-    MPI_Type_create_subarray
-    MPI_Type_create_subarray_c
-    MPI_Type_delete_attr
-    MPI_Type_dup
-    MPI_Type_free
-    MPI_Type_free_keyval
-    MPI_Type_get_attr
-    MPI_Type_get_contents
-    MPI_Type_get_contents_c
-    MPI_Type_get_envelope
-    MPI_Type_get_envelope_c
-    MPI_Type_get_extent
-    MPI_Type_get_extent_c
-    MPI_Type_get_extent_x
-    MPI_Type_get_name
-    MPI_Type_get_true_extent
-    MPI_Type_get_true_extent_c
-    MPI_Type_get_true_extent_x
-    MPI_Type_get_value_index
-    MPI_Type_indexed
-    MPI_Type_indexed_c
-    MPI_Type_match_size
-    MPI_Type_set_attr
-    MPI_Type_set_name
-    MPI_Type_size
-    MPI_Type_size_c
-    MPI_Type_size_x
-    MPI_Type_vector
-    MPI_Type_vector_c
-    MPI_Unpack
-    MPI_Unpack_c
-    MPI_Unpack_external
-    MPI_Unpack_external_c
-    MPI_Unpublish_name
-    MPI_Wait
-    MPI_Waitall
-    MPI_Waitany
-    MPI_Waitsome
-    MPI_Win_allocate
-    MPI_Win_allocate_c
-    MPI_Win_allocate_shared
-    MPI_Win_allocate_shared_c
-    MPI_Win_attach
-    MPI_Win_call_errhandler
-    MPI_Win_complete
-    MPI_Win_create
-    MPI_Win_create_c
-    MPI_Win_create_dynamic
-    MPI_Win_create_errhandler
-    MPI_Win_create_keyval
-    MPI_Win_delete_attr
-    MPI_Win_detach
-    MPI_Win_fence
-    MPI_Win_flush
-    MPI_Win_flush_all
-    MPI_Win_flush_local
-    MPI_Win_flush_local_all
-    MPI_Win_free
-    MPI_Win_free_keyval
-    MPI_Win_get_attr
-    MPI_Win_get_errhandler
-    MPI_Win_get_group
-    MPI_Win_get_info
-    MPI_Win_get_name
-    MPI_Win_lock
-    MPI_Win_lock_all
-    MPI_Win_post
-    MPI_Win_set_attr
-    MPI_Win_set_errhandler
-    MPI_Win_set_info
-    MPI_Win_set_name
-    MPI_Win_shared_query
-    MPI_Win_shared_query_c
-    MPI_Win_start
-    MPI_Win_sync
-    MPI_Win_test
-    MPI_Win_unlock
-    MPI_Win_unlock_all
-    MPI_Win_wait
-    MPI_Aint_add
-    MPI_Aint_diff
-    MPI_Wtick
-    MPI_Wtime
-    MPI_Comm_fromint
-    MPI_Comm_toint
-    MPI_Errhandler_fromint
-    MPI_Errhandler_toint
-    MPI_File_fromint
-    MPI_File_toint
-    MPI_Group_fromint
-    MPI_Group_toint
-    MPI_Info_fromint
-    MPI_Info_toint
-    MPI_Message_fromint
-    MPI_Message_toint
-    MPI_Op_fromint
-    MPI_Op_toint
-    MPI_Request_fromint
-    MPI_Request_toint
-    MPI_Session_fromint
-    MPI_Session_toint
-    MPI_Type_fromint
-    MPI_Type_toint
-    MPI_Win_fromint
-    MPI_Win_toint
     MPI_T_category_changed
     MPI_T_category_get_categories
     MPI_T_category_get_cvars
@@ -664,6 +552,118 @@ EXPORTS
     MPI_T_source_get_info
     MPI_T_source_get_num
     MPI_T_source_get_timestamp
+    MPI_Test
+    MPI_Test_cancelled
+    MPI_Testall
+    MPI_Testany
+    MPI_Testsome
+    MPI_Topo_test
+    MPI_Type_commit
+    MPI_Type_contiguous
+    MPI_Type_contiguous_c
+    MPI_Type_create_darray
+    MPI_Type_create_darray_c
+    MPI_Type_create_f90_complex
+    MPI_Type_create_f90_integer
+    MPI_Type_create_f90_real
+    MPI_Type_create_hindexed
+    MPI_Type_create_hindexed_block
+    MPI_Type_create_hindexed_block_c
+    MPI_Type_create_hindexed_c
+    MPI_Type_create_hvector
+    MPI_Type_create_hvector_c
+    MPI_Type_create_indexed_block
+    MPI_Type_create_indexed_block_c
+    MPI_Type_create_keyval
+    MPI_Type_create_resized
+    MPI_Type_create_resized_c
+    MPI_Type_create_struct
+    MPI_Type_create_struct_c
+    MPI_Type_create_subarray
+    MPI_Type_create_subarray_c
+    MPI_Type_delete_attr
+    MPI_Type_dup
+    MPI_Type_free
+    MPI_Type_free_keyval
+    MPI_Type_fromint
+    MPI_Type_get_attr
+    MPI_Type_get_contents
+    MPI_Type_get_contents_c
+    MPI_Type_get_envelope
+    MPI_Type_get_envelope_c
+    MPI_Type_get_extent
+    MPI_Type_get_extent_c
+    MPI_Type_get_extent_x
+    MPI_Type_get_name
+    MPI_Type_get_true_extent
+    MPI_Type_get_true_extent_c
+    MPI_Type_get_true_extent_x
+    MPI_Type_get_value_index
+    MPI_Type_indexed
+    MPI_Type_indexed_c
+    MPI_Type_match_size
+    MPI_Type_set_attr
+    MPI_Type_set_name
+    MPI_Type_size
+    MPI_Type_size_c
+    MPI_Type_size_x
+    MPI_Type_toint
+    MPI_Type_vector
+    MPI_Type_vector_c
+    MPI_Unpack
+    MPI_Unpack_c
+    MPI_Unpack_external
+    MPI_Unpack_external_c
+    MPI_Unpublish_name
+    MPI_Wait
+    MPI_Waitall
+    MPI_Waitany
+    MPI_Waitsome
+    MPI_Win_allocate
+    MPI_Win_allocate_c
+    MPI_Win_allocate_shared
+    MPI_Win_allocate_shared_c
+    MPI_Win_attach
+    MPI_Win_call_errhandler
+    MPI_Win_complete
+    MPI_Win_create
+    MPI_Win_create_c
+    MPI_Win_create_dynamic
+    MPI_Win_create_errhandler
+    MPI_Win_create_keyval
+    MPI_Win_delete_attr
+    MPI_Win_detach
+    MPI_Win_fence
+    MPI_Win_flush
+    MPI_Win_flush_all
+    MPI_Win_flush_local
+    MPI_Win_flush_local_all
+    MPI_Win_free
+    MPI_Win_free_keyval
+    MPI_Win_fromint
+    MPI_Win_get_attr
+    MPI_Win_get_errhandler
+    MPI_Win_get_group
+    MPI_Win_get_info
+    MPI_Win_get_name
+    MPI_Win_lock
+    MPI_Win_lock_all
+    MPI_Win_post
+    MPI_Win_set_attr
+    MPI_Win_set_errhandler
+    MPI_Win_set_info
+    MPI_Win_set_name
+    MPI_Win_shared_query
+    MPI_Win_shared_query_c
+    MPI_Win_start
+    MPI_Win_sync
+    MPI_Win_test
+    MPI_Win_toint
+    MPI_Win_unlock
+    MPI_Win_unlock_all
+    MPI_Win_wait
+    MPI_Wtick
+    MPI_Wtime
     PMPI_Abi_get_fortran_booleans
     PMPI_Abi_get_fortran_info
     PMPI_Abi_get_info
@@ -676,6 +676,8 @@ EXPORTS
     PMPI_Add_error_class
     PMPI_Add_error_code
     PMPI_Add_error_string
+    PMPI_Aint_add
+    PMPI_Aint_diff
     PMPI_Allgather
     PMPI_Allgather_c
     PMPI_Allgather_init
@@ -750,6 +752,7 @@ EXPORTS
     PMPI_Comm_flush_buffer
     PMPI_Comm_free
     PMPI_Comm_free_keyval
+    PMPI_Comm_fromint
     PMPI_Comm_get_attr
     PMPI_Comm_get_errhandler
     PMPI_Comm_get_info
@@ -773,6 +776,7 @@ EXPORTS
     PMPI_Comm_split
     PMPI_Comm_split_type
     PMPI_Comm_test_inter
+    PMPI_Comm_toint
     PMPI_Compare_and_swap
     PMPI_Dims_create
     PMPI_Dist_graph_create
@@ -780,6 +784,8 @@ EXPORTS
     PMPI_Dist_graph_neighbors
     PMPI_Dist_graph_neighbors_count
     PMPI_Errhandler_free
+    PMPI_Errhandler_fromint
+    PMPI_Errhandler_toint
     PMPI_Error_class
     PMPI_Error_string
     PMPI_Exscan
@@ -791,6 +797,7 @@ EXPORTS
     PMPI_File_close
     PMPI_File_create_errhandler
     PMPI_File_delete
+    PMPI_File_fromint
     PMPI_File_get_amode
     PMPI_File_get_atomicity
     PMPI_File_get_byte_offset
@@ -804,45 +811,45 @@ EXPORTS
     PMPI_File_get_type_extent_c
     PMPI_File_get_view
     PMPI_File_iread
-    PMPI_File_iread_c
     PMPI_File_iread_all
     PMPI_File_iread_all_c
     PMPI_File_iread_at
-    PMPI_File_iread_at_c
     PMPI_File_iread_at_all
     PMPI_File_iread_at_all_c
+    PMPI_File_iread_at_c
+    PMPI_File_iread_c
     PMPI_File_iread_shared
     PMPI_File_iread_shared_c
     PMPI_File_iwrite
-    PMPI_File_iwrite_c
     PMPI_File_iwrite_all
     PMPI_File_iwrite_all_c
     PMPI_File_iwrite_at
-    PMPI_File_iwrite_at_c
     PMPI_File_iwrite_at_all
     PMPI_File_iwrite_at_all_c
+    PMPI_File_iwrite_at_c
+    PMPI_File_iwrite_c
     PMPI_File_iwrite_shared
     PMPI_File_iwrite_shared_c
     PMPI_File_open
     PMPI_File_preallocate
     PMPI_File_read
-    PMPI_File_read_c
     PMPI_File_read_all
-    PMPI_File_read_all_c
     PMPI_File_read_all_begin
     PMPI_File_read_all_begin_c
+    PMPI_File_read_all_c
     PMPI_File_read_all_end
     PMPI_File_read_at
-    PMPI_File_read_at_c
     PMPI_File_read_at_all
-    PMPI_File_read_at_all_c
     PMPI_File_read_at_all_begin
     PMPI_File_read_at_all_begin_c
+    PMPI_File_read_at_all_c
     PMPI_File_read_at_all_end
+    PMPI_File_read_at_c
+    PMPI_File_read_c
     PMPI_File_read_ordered
-    PMPI_File_read_ordered_c
     PMPI_File_read_ordered_begin
     PMPI_File_read_ordered_begin_c
+    PMPI_File_read_ordered_c
     PMPI_File_read_ordered_end
     PMPI_File_read_shared
     PMPI_File_read_shared_c
@@ -854,24 +861,25 @@ EXPORTS
     PMPI_File_set_size
     PMPI_File_set_view
     PMPI_File_sync
+    PMPI_File_toint
     PMPI_File_write
-    PMPI_File_write_c
     PMPI_File_write_all
-    PMPI_File_write_all_c
     PMPI_File_write_all_begin
     PMPI_File_write_all_begin_c
+    PMPI_File_write_all_c
     PMPI_File_write_all_end
     PMPI_File_write_at
-    PMPI_File_write_at_c
     PMPI_File_write_at_all
-    PMPI_File_write_at_all_c
     PMPI_File_write_at_all_begin
     PMPI_File_write_at_all_begin_c
+    PMPI_File_write_at_all_c
     PMPI_File_write_at_all_end
+    PMPI_File_write_at_c
+    PMPI_File_write_c
     PMPI_File_write_ordered
-    PMPI_File_write_ordered_c
     PMPI_File_write_ordered_begin
     PMPI_File_write_ordered_begin_c
+    PMPI_File_write_ordered_c
     PMPI_File_write_ordered_end
     PMPI_File_write_shared
     PMPI_File_write_shared_c
@@ -887,10 +895,10 @@ EXPORTS
     PMPI_Gatherv_init
     PMPI_Gatherv_init_c
     PMPI_Get
-    PMPI_Get_c
     PMPI_Get_accumulate
     PMPI_Get_accumulate_c
     PMPI_Get_address
+    PMPI_Get_c
     PMPI_Get_count
     PMPI_Get_count_c
     PMPI_Get_elements
@@ -913,12 +921,14 @@ EXPORTS
     PMPI_Group_excl
     PMPI_Group_free
     PMPI_Group_from_session_pset
+    PMPI_Group_fromint
     PMPI_Group_incl
     PMPI_Group_intersection
     PMPI_Group_range_excl
     PMPI_Group_range_incl
     PMPI_Group_rank
     PMPI_Group_size
+    PMPI_Group_toint
     PMPI_Group_translate_ranks
     PMPI_Group_union
     PMPI_Iallgather
@@ -962,12 +972,14 @@ EXPORTS
     PMPI_Info_delete
     PMPI_Info_dup
     PMPI_Info_free
+    PMPI_Info_fromint
     PMPI_Info_get
     PMPI_Info_get_nkeys
     PMPI_Info_get_nthkey
     PMPI_Info_get_string
     PMPI_Info_get_valuelen
     PMPI_Info_set
+    PMPI_Info_toint
     PMPI_Init
     PMPI_Init_thread
     PMPI_Initialized
@@ -980,9 +992,9 @@ EXPORTS
     PMPI_Ireduce
     PMPI_Ireduce_c
     PMPI_Ireduce_scatter
-    PMPI_Ireduce_scatter_c
     PMPI_Ireduce_scatter_block
     PMPI_Ireduce_scatter_block_c
+    PMPI_Ireduce_scatter_c
     PMPI_Irsend
     PMPI_Irsend_c
     PMPI_Is_thread_main
@@ -1003,6 +1015,8 @@ EXPORTS
     PMPI_Keyval_create
     PMPI_Keyval_free
     PMPI_Lookup_name
+    PMPI_Message_fromint
+    PMPI_Message_toint
     PMPI_Mprobe
     PMPI_Mrecv
     PMPI_Mrecv_c
@@ -1030,6 +1044,8 @@ EXPORTS
     PMPI_Op_create
     PMPI_Op_create_c
     PMPI_Op_free
+    PMPI_Op_fromint
+    PMPI_Op_toint
     PMPI_Open_port
     PMPI_Pack
     PMPI_Pack_c
@@ -1066,11 +1082,11 @@ EXPORTS
     PMPI_Reduce_local
     PMPI_Reduce_local_c
     PMPI_Reduce_scatter
-    PMPI_Reduce_scatter_c
     PMPI_Reduce_scatter_block
     PMPI_Reduce_scatter_block_c
     PMPI_Reduce_scatter_block_init
     PMPI_Reduce_scatter_block_init_c
+    PMPI_Reduce_scatter_c
     PMPI_Reduce_scatter_init
     PMPI_Reduce_scatter_init_c
     PMPI_Register_datarep
@@ -1079,14 +1095,16 @@ EXPORTS
     PMPI_Remove_error_code
     PMPI_Remove_error_string
     PMPI_Request_free
+    PMPI_Request_fromint
     PMPI_Request_get_status
     PMPI_Request_get_status_all
     PMPI_Request_get_status_any
     PMPI_Request_get_status_some
+    PMPI_Request_toint
     PMPI_Rget
-    PMPI_Rget_c
     PMPI_Rget_accumulate
     PMPI_Rget_accumulate_c
+    PMPI_Rget_c
     PMPI_Rput
     PMPI_Rput_c
     PMPI_Rsend
@@ -1121,6 +1139,7 @@ EXPORTS
     PMPI_Session_detach_buffer_c
     PMPI_Session_finalize
     PMPI_Session_flush_buffer
+    PMPI_Session_fromint
     PMPI_Session_get_errhandler
     PMPI_Session_get_info
     PMPI_Session_get_nth_pset
@@ -1129,6 +1148,7 @@ EXPORTS
     PMPI_Session_iflush_buffer
     PMPI_Session_init
     PMPI_Session_set_errhandler
+    PMPI_Session_toint
     PMPI_Ssend
     PMPI_Ssend_c
     PMPI_Ssend_init
@@ -1145,138 +1165,6 @@ EXPORTS
     PMPI_Status_set_error
     PMPI_Status_set_source
     PMPI_Status_set_tag
-    PMPI_Test
-    PMPI_Test_cancelled
-    PMPI_Testall
-    PMPI_Testany
-    PMPI_Testsome
-    PMPI_Topo_test
-    PMPI_Type_commit
-    PMPI_Type_contiguous
-    PMPI_Type_contiguous_c
-    PMPI_Type_create_darray
-    PMPI_Type_create_darray_c
-    PMPI_Type_create_f90_complex
-    PMPI_Type_create_f90_integer
-    PMPI_Type_create_f90_real
-    PMPI_Type_create_hindexed
-    PMPI_Type_create_hindexed_c
-    PMPI_Type_create_hindexed_block
-    PMPI_Type_create_hindexed_block_c
-    PMPI_Type_create_hvector
-    PMPI_Type_create_hvector_c
-    PMPI_Type_create_indexed_block
-    PMPI_Type_create_indexed_block_c
-    PMPI_Type_create_keyval
-    PMPI_Type_create_resized
-    PMPI_Type_create_resized_c
-    PMPI_Type_create_struct
-    PMPI_Type_create_struct_c
-    PMPI_Type_create_subarray
-    PMPI_Type_create_subarray_c
-    PMPI_Type_delete_attr
-    PMPI_Type_dup
-    PMPI_Type_free
-    PMPI_Type_free_keyval
-    PMPI_Type_get_attr
-    PMPI_Type_get_contents
-    PMPI_Type_get_contents_c
-    PMPI_Type_get_envelope
-    PMPI_Type_get_envelope_c
-    PMPI_Type_get_extent
-    PMPI_Type_get_extent_c
-    PMPI_Type_get_extent_x
-    PMPI_Type_get_name
-    PMPI_Type_get_true_extent
-    PMPI_Type_get_true_extent_c
-    PMPI_Type_get_true_extent_x
-    PMPI_Type_get_value_index
-    PMPI_Type_indexed
-    PMPI_Type_indexed_c
-    PMPI_Type_match_size
-    PMPI_Type_set_attr
-    PMPI_Type_set_name
-    PMPI_Type_size
-    PMPI_Type_size_c
-    PMPI_Type_size_x
-    PMPI_Type_vector
-    PMPI_Type_vector_c
-    PMPI_Unpack
-    PMPI_Unpack_c
-    PMPI_Unpack_external
-    PMPI_Unpack_external_c
-    PMPI_Unpublish_name
-    PMPI_Wait
-    PMPI_Waitall
-    PMPI_Waitany
-    PMPI_Waitsome
-    PMPI_Win_allocate
-    PMPI_Win_allocate_c
-    PMPI_Win_allocate_shared
-    PMPI_Win_allocate_shared_c
-    PMPI_Win_attach
-    PMPI_Win_call_errhandler
-    PMPI_Win_complete
-    PMPI_Win_create
-    PMPI_Win_create_c
-    PMPI_Win_create_dynamic
-    PMPI_Win_create_errhandler
-    PMPI_Win_create_keyval
-    PMPI_Win_delete_attr
-    PMPI_Win_detach
-    PMPI_Win_fence
-    PMPI_Win_flush
-    PMPI_Win_flush_all
-    PMPI_Win_flush_local
-    PMPI_Win_flush_local_all
-    PMPI_Win_free
-    PMPI_Win_free_keyval
-    PMPI_Win_get_attr
-    PMPI_Win_get_errhandler
-    PMPI_Win_get_group
-    PMPI_Win_get_info
-    PMPI_Win_get_name
-    PMPI_Win_lock
-    PMPI_Win_lock_all
-    PMPI_Win_post
-    PMPI_Win_set_attr
-    PMPI_Win_set_errhandler
-    PMPI_Win_set_info
-    PMPI_Win_set_name
-    PMPI_Win_shared_query
-    PMPI_Win_shared_query_c
-    PMPI_Win_start
-    PMPI_Win_sync
-    PMPI_Win_test
-    PMPI_Win_unlock
-    PMPI_Win_unlock_all
-    PMPI_Win_wait
-    PMPI_Aint_add
-    PMPI_Aint_diff
-    PMPI_Wtick
-    PMPI_Wtime
-    PMPI_Comm_fromint
-    PMPI_Comm_toint
-    PMPI_Errhandler_fromint
-    PMPI_Errhandler_toint
-    PMPI_File_fromint
-    PMPI_File_toint
-    PMPI_Group_fromint
-    PMPI_Group_toint
-    PMPI_Info_fromint
-    PMPI_Info_toint
-    PMPI_Message_fromint
-    PMPI_Message_toint
-    PMPI_Op_fromint
-    PMPI_Op_toint
-    PMPI_Request_fromint
-    PMPI_Request_toint
-    PMPI_Session_fromint
-    PMPI_Session_toint
-    PMPI_Type_fromint
-    PMPI_Type_toint
-    PMPI_Win_fromint
-    PMPI_Win_toint
     PMPI_T_category_changed
     PMPI_T_category_get_categories
     PMPI_T_category_get_cvars
@@ -1328,3 +1216,115 @@ EXPORTS
     PMPI_T_source_get_info
     PMPI_T_source_get_num
     PMPI_T_source_get_timestamp
+    PMPI_Test
+    PMPI_Test_cancelled
+    PMPI_Testall
+    PMPI_Testany
+    PMPI_Testsome
+    PMPI_Topo_test
+    PMPI_Type_commit
+    PMPI_Type_contiguous
+    PMPI_Type_contiguous_c
+    PMPI_Type_create_darray
+    PMPI_Type_create_darray_c
+    PMPI_Type_create_f90_complex
+    PMPI_Type_create_f90_integer
+    PMPI_Type_create_f90_real
+    PMPI_Type_create_hindexed
+    PMPI_Type_create_hindexed_block
+    PMPI_Type_create_hindexed_block_c
+    PMPI_Type_create_hindexed_c
+    PMPI_Type_create_hvector
+    PMPI_Type_create_hvector_c
+    PMPI_Type_create_indexed_block
+    PMPI_Type_create_indexed_block_c
+    PMPI_Type_create_keyval
+    PMPI_Type_create_resized
+    PMPI_Type_create_resized_c
+    PMPI_Type_create_struct
+    PMPI_Type_create_struct_c
+    PMPI_Type_create_subarray
+    PMPI_Type_create_subarray_c
+    PMPI_Type_delete_attr
+    PMPI_Type_dup
+    PMPI_Type_free
+    PMPI_Type_free_keyval
+    PMPI_Type_fromint
+    PMPI_Type_get_attr
+    PMPI_Type_get_contents
+    PMPI_Type_get_contents_c
+    PMPI_Type_get_envelope
+    PMPI_Type_get_envelope_c
+    PMPI_Type_get_extent
+    PMPI_Type_get_extent_c
+    PMPI_Type_get_extent_x
+    PMPI_Type_get_name
+    PMPI_Type_get_true_extent
+    PMPI_Type_get_true_extent_c
+    PMPI_Type_get_true_extent_x
+    PMPI_Type_get_value_index
+    PMPI_Type_indexed
+    PMPI_Type_indexed_c
+    PMPI_Type_match_size
+    PMPI_Type_set_attr
+    PMPI_Type_set_name
+    PMPI_Type_size
+    PMPI_Type_size_c
+    PMPI_Type_size_x
+    PMPI_Type_toint
+    PMPI_Type_vector
+    PMPI_Type_vector_c
+    PMPI_Unpack
+    PMPI_Unpack_c
+    PMPI_Unpack_external
+    PMPI_Unpack_external_c
+    PMPI_Unpublish_name
+    PMPI_Wait
+    PMPI_Waitall
+    PMPI_Waitany
+    PMPI_Waitsome
+    PMPI_Win_allocate
+    PMPI_Win_allocate_c
+    PMPI_Win_allocate_shared
+    PMPI_Win_allocate_shared_c
+    PMPI_Win_attach
+    PMPI_Win_call_errhandler
+    PMPI_Win_complete
+    PMPI_Win_create
+    PMPI_Win_create_c
+    PMPI_Win_create_dynamic
+    PMPI_Win_create_errhandler
+    PMPI_Win_create_keyval
+    PMPI_Win_delete_attr
+    PMPI_Win_detach
+    PMPI_Win_fence
+    PMPI_Win_flush
+    PMPI_Win_flush_all
+    PMPI_Win_flush_local
+    PMPI_Win_flush_local_all
+    PMPI_Win_free
+    PMPI_Win_free_keyval
+    PMPI_Win_fromint
+    PMPI_Win_get_attr
+    PMPI_Win_get_errhandler
+    PMPI_Win_get_group
+    PMPI_Win_get_info
+    PMPI_Win_get_name
+    PMPI_Win_lock
+    PMPI_Win_lock_all
+    PMPI_Win_post
+    PMPI_Win_set_attr
+    PMPI_Win_set_errhandler
+    PMPI_Win_set_info
+    PMPI_Win_set_name
+    PMPI_Win_shared_query
+    PMPI_Win_shared_query_c
+    PMPI_Win_start
+    PMPI_Win_sync
+    PMPI_Win_test
+    PMPI_Win_toint
+    PMPI_Win_unlock
+    PMPI_Win_unlock_all
+    PMPI_Win_wait
+    PMPI_Wtick
+    PMPI_Wtime

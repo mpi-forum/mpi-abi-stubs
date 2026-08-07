@@ -167,6 +167,11 @@ with open("mpilib.c", "w") as file:
         file.write(f"{line}\n")
 
 
+# Sorted symbols
+# --------------
+symbols = sorted(funcnames)
+
+
 # Update mpilib.def
 # -----------------
 
@@ -174,8 +179,8 @@ with open("mpilib.c", "w") as file:
 contents = [
     "LIBRARY mpi_abi",
     "EXPORTS",
-    *(f"    {fn}" for fn in funcnames),
-    *(f"    P{fn}" for fn in funcnames),
+    *(f"    {sym}" for sym in symbols),
+    *(f"    P{sym}" for sym in symbols),
 ]
 
 # write updated mpilib.def
