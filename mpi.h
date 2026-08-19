@@ -338,8 +338,8 @@ enum {
     MPI_THREAD_MULTIPLE                = 4096,
 
     /* Array Datatype Order */
-    MPI_ORDER_C                        = 0xC, /* 12 */
-    MPI_ORDER_FORTRAN                  = 0xF, /* 15 */
+    MPI_ORDER_C                        = 12, /* 0xC */
+    MPI_ORDER_FORTRAN                  = 15, /* 0xF */
 
     /* Array Datatype Distribution */
     MPI_DISTRIBUTE_NONE                = 16,
