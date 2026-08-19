@@ -1575,24 +1575,16 @@ int MPI_Pready_range(int partition_low, int partition_high, MPI_Request request)
 int PMPI_Pready_range(int partition_low, int partition_high, MPI_Request request) { abort(); return 0; }
 
 #pragma weak MPI_Precv_init
-int MPI_Precv_init(void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Precv_init(buf, partitions, count, datatype, dest, tag, comm, info, request); }
-int PMPI_Precv_init(void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
-
-#pragma weak MPI_Precv_init_c
-int MPI_Precv_init_c(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Precv_init_c(buf, partitions, count, datatype, dest, tag, comm, info, request); }
-int PMPI_Precv_init_c(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int MPI_Precv_init(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Precv_init(buf, partitions, count, datatype, dest, tag, comm, info, request); }
+int PMPI_Precv_init(void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 
 #pragma weak MPI_Probe
 int MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) { return PMPI_Probe(source, tag, comm, status); }
 int PMPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status) { abort(); return 0; }
 
 #pragma weak MPI_Psend_init
-int MPI_Psend_init(const void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Psend_init(buf, partitions, count, datatype, dest, tag, comm, info, request); }
-int PMPI_Psend_init(const void *buf, int partitions, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
-
-#pragma weak MPI_Psend_init_c
-int MPI_Psend_init_c(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Psend_init_c(buf, partitions, count, datatype, dest, tag, comm, info, request); }
-int PMPI_Psend_init_c(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
+int MPI_Psend_init(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Psend_init(buf, partitions, count, datatype, dest, tag, comm, info, request); }
+int PMPI_Psend_init(const void *buf, int partitions, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 
 #pragma weak MPI_Publish_name
 int MPI_Publish_name(const char *service_name, MPI_Info info, const char *port_name) { return PMPI_Publish_name(service_name, info, port_name); }

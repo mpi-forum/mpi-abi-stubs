@@ -397,10 +397,8 @@ EXPORTS
     MPI_Pready_list
     MPI_Pready_range
     MPI_Precv_init
-    MPI_Precv_init_c
     MPI_Probe
     MPI_Psend_init
-    MPI_Psend_init_c
     MPI_Publish_name
     MPI_Put
     MPI_Put_c
@@ -1061,10 +1059,8 @@ EXPORTS
     PMPI_Pready_list
     PMPI_Pready_range
     PMPI_Precv_init
-    PMPI_Precv_init_c
     PMPI_Probe
     PMPI_Psend_init
-    PMPI_Psend_init_c
     PMPI_Publish_name
     PMPI_Put
     PMPI_Put_c
