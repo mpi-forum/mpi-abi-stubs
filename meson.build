@@ -94,8 +94,17 @@ shared_library(
 )
 
 if host_machine.system() == 'darwin'
-  meson.add_install_script(
-    find_program('sh'),
-    files('fix-dylib-id.sh'),
-  )
+  install_name_tool = find_program('install_name_tool').full_path()
+  libdir = get_option('libdir')
+  if fs.is_absolute(libdir)
+    destdir = '${MESON_INSTALL_DESTDIR_PREFIX%"$MESON_INSTALL_PREFIX"}'
+    location = destdir + libdir
+  else
+    location = '$MESON_INSTALL_DESTDIR_PREFIX' / libdir
+  endif
+  dlname = f'lib@libname@.@soversion@.dylib'
+  dylib_id = '@rpath' / dlname
+  dylib_path = location / dlname
+  command = f'@install_name_tool@ -id @dylib_id@ "@dylib_path@"'
+  meson.add_install_script(find_program('sh'), '-c', command)
 endif
