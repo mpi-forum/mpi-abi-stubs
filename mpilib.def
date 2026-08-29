@@ -39,9 +39,6 @@ EXPORTS
     MPI_Alltoallw_c
     MPI_Alltoallw_init
     MPI_Alltoallw_init_c
-    MPI_Attr_delete
-    MPI_Attr_get
-    MPI_Attr_put
     MPI_Barrier
     MPI_Barrier_init
     MPI_Bcast
@@ -348,8 +345,6 @@ EXPORTS
     MPI_Isendrecv_replace_c
     MPI_Issend
     MPI_Issend_c
-    MPI_Keyval_create
-    MPI_Keyval_free
     MPI_Lookup_name
     MPI_Message_fromint
     MPI_Message_toint
@@ -701,9 +696,6 @@ EXPORTS
     PMPI_Alltoallw_c
     PMPI_Alltoallw_init
     PMPI_Alltoallw_init_c
-    PMPI_Attr_delete
-    PMPI_Attr_get
-    PMPI_Attr_put
     PMPI_Barrier
     PMPI_Barrier_init
     PMPI_Bcast
@@ -1010,8 +1002,6 @@ EXPORTS
     PMPI_Isendrecv_replace_c
     PMPI_Issend
     PMPI_Issend_c
-    PMPI_Keyval_create
-    PMPI_Keyval_free
     PMPI_Lookup_name
     PMPI_Message_fromint
     PMPI_Message_toint

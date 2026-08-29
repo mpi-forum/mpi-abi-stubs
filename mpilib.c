@@ -202,18 +202,6 @@ int PMPI_Alltoallw_init(const void *sendbuf, const int sendcounts[], const int s
 int MPI_Alltoallw_init_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { return PMPI_Alltoallw_init_c(sendbuf, sendcounts, sdispls, sendtypes, recvbuf, recvcounts, rdispls, recvtypes, comm, info, request); }
 int PMPI_Alltoallw_init_c(const void *sendbuf, const MPI_Count sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const MPI_Count recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Info info, MPI_Request *request) { abort(); return 0; }
 
-#pragma weak MPI_Attr_delete
-int MPI_Attr_delete(MPI_Comm comm, int keyval) { return PMPI_Attr_delete(comm, keyval); }
-int PMPI_Attr_delete(MPI_Comm comm, int keyval) { abort(); return 0; }
-
-#pragma weak MPI_Attr_get
-int MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) { return PMPI_Attr_get(comm, keyval, attribute_val, flag); }
-int PMPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) { abort(); return 0; }
-
-#pragma weak MPI_Attr_put
-int MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) { return PMPI_Attr_put(comm, keyval, attribute_val); }
-int PMPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) { abort(); return 0; }
-
 #pragma weak MPI_Barrier
 int MPI_Barrier(MPI_Comm comm) { return PMPI_Barrier(comm); }
 int PMPI_Barrier(MPI_Comm comm) { abort(); return 0; }
@@ -1397,14 +1385,6 @@ int PMPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest, int
 #pragma weak MPI_Issend_c
 int MPI_Issend_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { return PMPI_Issend_c(buf, count, datatype, dest, tag, comm, request); }
 int PMPI_Issend_c(const void *buf, MPI_Count count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request) { abort(); return 0; }
-
-#pragma weak MPI_Keyval_create
-int MPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) { return PMPI_Keyval_create(copy_fn, delete_fn, keyval, extra_state); }
-int PMPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) { abort(); return 0; }
-
-#pragma weak MPI_Keyval_free
-int MPI_Keyval_free(int *keyval) { return PMPI_Keyval_free(keyval); }
-int PMPI_Keyval_free(int *keyval) { abort(); return 0; }
 
 #pragma weak MPI_Lookup_name
 int MPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name) { return PMPI_Lookup_name(service_name, info, port_name); }
