@@ -15,6 +15,8 @@ fi
 
 Exec="exec"
 mode="link"
+legacy="no"
+fortran="no"
 arglist=("$@")
 argindex=0
 for arg in "$@" ; do
@@ -26,6 +28,14 @@ for arg in "$@" ; do
             ;;
         -@op@=*)
             @CC@="${arg#*=}"
+            ;;
+        -mpi-abi)
+            ;;
+        -mpi-legacy)
+            legacy="yes"
+            ;;
+        -mpi-fortran)
+            fortran="yes"
             ;;
         -show|-showme)
             Exec="echo"
@@ -72,15 +82,23 @@ if [[ "@${arglist[*]}" = "@-v" ]]; then
     mode=""
 fi
 
+cppflags=()
+if [[ "$legacy" = "yes" ]]; then
+    cppflags+=(-DMPI_LEGACY)
+fi
+if [[ "$fortran" = "yes" ]]; then
+    cppflags+=(-DMPI_FORTRAN)
+fi
+
 if [[ "$mode" = "compile" ]]; then
-    $Exec "${@CC@}" "${arglist[@]}" -I"${incdir}"
+    $Exec "${@CC@}" "${arglist[@]}" "${cppflags[@]}" -I"${incdir}"
 elif [[ "$mode" = "link" ]]; then
-    $Exec "${@CC@}" "${arglist[@]}" -I"${incdir}" -L"${libdir}" -lmpi_abi
+    $Exec "${@CC@}" "${arglist[@]}" "${cppflags[@]}" -I"${incdir}" -L"${libdir}" -lmpi_abi
 elif [[ "$mode" = "" ]]; then
-    $Exec "${@CC@}" "${arglist[@]}"
+    $Exec "${@CC@}" "${arglist[@]}" "${cppflags[@]}"
 else
     case "$mode" in
-        show-compile) printf -- "-I%s\n" "${incdir}";;
+        show-compile) printf -- "%s-I%s\n" "${cppflags[*]}${cppflags+" "}" "${incdir}";;
         show-link)    printf -- "-L%s -l%s\n" "${libdir}" mpi_abi;;
         show-incdir)  printf -- "%s\n" "${incdir}";;
         show-libdir)  printf -- "%s\n" "${libdir}";;
