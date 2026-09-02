@@ -80,6 +80,7 @@ endforeach
 
 install_headers(
   files(source_h),
+  files('mpi_legacy.h'),
 )
 
 libname = 'mpi_abi'

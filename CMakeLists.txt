@@ -94,7 +94,10 @@ foreach(script mpicc mpicxx)
   )
 endforeach()
 
-install(FILES ${SOURCE_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(
+  FILES ${SOURCE_H} mpi_legacy.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
 
 set(LIBNAME mpi_abi)
 set(SOVERSION ${ABI_MAJOR})
