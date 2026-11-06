@@ -187,3 +187,51 @@ contents = [
 with open("mpilib.def", "w") as file:
     for line in contents:
         file.write(f"{line}\n")
+
+
+# Update mpilib.tbd
+# -----------------
+
+# generate contents
+contents = [
+    "--- !tapi-tbd",
+    "tbd-version: 4",
+    "targets: [ arm64-macos, x86_64-macos ]",
+    "install-name: '@rpath/libmpi_abi.1.dylib'",
+    "current-version: 0",
+    "compatibility-version: 0",
+    "exports:",
+    "  - targets: [ arm64-macos, x86_64-macos ]",
+    "    symbols: [",
+    *(f"      _P{sym}," for sym in symbols),
+    "    ]",
+    "    weak-symbols: [",
+    *(f"      _{sym}," for sym in symbols),
+    "    ]",
+    "...",
+]
+
+# write updated mpilib.tbd
+with open("mpilib.tbd", "w") as file:
+    for line in contents:
+        file.write(f"{line}\n")
+
+
+# Update mpilib.ifs
+# -----------------
+
+# generate contents
+contents = [
+    "--- !ifs-v1",
+    "IfsVersion: 3.0",
+    "SoName: libmpi_abi.so.1",
+    "Symbols:",
+    *(f"  - {{ Name: {sym}, Type: Func, Weak: true }}" for sym in symbols),
+    *(f"  - {{ Name: P{sym}, Type: Func }}" for sym in symbols),
+    "...",
+]
+
+# write updated mpilib.ifs
+with open(f"mpilib.ifs", "w") as file:
+    for line in contents:
+        file.write(f"{line}\n")
