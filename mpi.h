@@ -1878,7 +1878,11 @@ int PMPI_T_source_get_num(int *num_sources);
 int PMPI_T_source_get_timestamp(int source_index, MPI_Count *timestamp);
 
 #if defined(__cplusplus)
-}
+} /* extern "C" */
+#endif
+
+#if defined(MPI_LEGACY)
+#include "mpi_legacy.h"
 #endif
 
 #endif  /* MPI_H_ABI */
