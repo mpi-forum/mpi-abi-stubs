@@ -126,6 +126,7 @@ install-scripts: $(foreach f,$(SCRIPTS),$(BUILD)/$(f)) | $(DESTBINDIR)/.
 	cd $(DESTBINDIR) && $(foreach f,$(^F),$(LN_S) $(f) $(f)_abi &&) true;
 install-headers: $(SOURCE_H) | $(DESTINCDIR)/.
 	install -c -m 644 $^ $(DESTINCDIR)
+	install -c -m 644 mpi_legacy.h $(DESTINCDIR)
 install-library: $(BUILD)/$(LIBFILE) | $(DESTLIBDIR)/.
 	install -c $^ $(DESTLIBDIR)
 	cd $(DESTLIBDIR) && $(LN_S) $(LIBFILE) $(LIBLINK)
@@ -137,6 +138,7 @@ uninstall-scripts:
 	-$(RM) $(foreach f,$(SCRIPTS),$(DESTBINDIR)/$(f)_abi)
 uninstall-headers:
 	-$(RM) $(foreach f,$(SOURCE_H),$(DESTINCDIR)/$(f))
+	-$(RM) $(foreach f,mpi_legacy.h,$(DESTINCDIR)/$(f))
 uninstall-library:
 	-$(RM) $(DESTLIBDIR)/$(LIBFILE)
 	-$(RM) $(DESTLIBDIR)/$(LIBLINK)

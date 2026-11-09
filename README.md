@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
 mpi-abi-stubs/
 ├── VERSION         # Project version file
 ├── mpi.h           # MPI ABI header file
+├── mpi_legacy.h    # Backward compatibility
 ├── mpilib.c        # Library stubs implementation
 ├── mpilib.def      # Visual Studio module-definition
 ├── mpicc.in        # Template for compiler wrappers
